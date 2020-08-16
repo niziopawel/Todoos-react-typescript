@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import AuthProvider from './context/AuthContext'
 import * as serviceWorker from './serviceWorker'
 import { Global } from '@emotion/core'
 import reset from './lib/reset'
@@ -8,7 +9,9 @@ import reset from './lib/reset'
 ReactDOM.render(
   <React.StrictMode>
     <Global styles={reset} />
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
