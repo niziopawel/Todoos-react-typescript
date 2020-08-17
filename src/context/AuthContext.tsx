@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode, useState, useEffect } from 'react'
 import { firebase } from '../config/firebaseConfig'
-import LandingPage from '../components/LandingPage'
-
+import LandingPage from '../screens/LandingPage'
 type AuthContextType = {
   status: string
   user: firebase.User | null

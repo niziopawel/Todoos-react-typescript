@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuthState } from './context/AuthContext'
-import LandingPage from './components/LandingPage'
+import LandingPage from './screens/LandingPage'
 const AuthenticatedApp = React.lazy(() =>
   import(/* webpackPrefetch: true*/ './AuthenticatedApp'),
 )
