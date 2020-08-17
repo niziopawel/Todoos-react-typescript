@@ -7,8 +7,7 @@ const Login: React.FC = () => {
     const password = 'password'
 
     try {
-      const response = await loginUserWithEmailAndPassword(email, password)
-      console.log(response.user?.email)
+      await loginUserWithEmailAndPassword(email, password)
     } catch (err) {
       console.log(err)
     }
