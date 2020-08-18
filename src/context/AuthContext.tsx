@@ -23,11 +23,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(
       user => {
-        if (user) {
-          setState({ status: 'success', error: null, user: user })
-        } else {
-          setState({ status: 'success', error: null, user: null })
-        }
+        setState({ status: 'success', error: null, user: user })
       },
       err => setState({ status: 'error', error: err, user: null }),
     )
