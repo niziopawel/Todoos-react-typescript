@@ -1,21 +1,21 @@
 import React from 'react'
-import { loginUserWithEmailAndPassword } from '../services/auth'
+import { useAuth } from '../context/AuthContext'
 
 const Login: React.FC = () => {
-  async function handleLoginBtnClick() {
-    const email = 'niziopawel1@gmail.com'
+  const { login, error } = useAuth()
+
+  console.log(error)
+
+  function handleSubmit() {
+    const email = 'niziopawel1@mail.com'
     const password = 'password'
 
-    try {
-      await loginUserWithEmailAndPassword(email, password)
-    } catch (err) {
-      console.log(err)
-    }
+    login(email, password)
   }
 
   return (
     <div>
-      <button onClick={handleLoginBtnClick}>Login</button>
+      <button onClick={handleSubmit}>Login</button>
     </div>
   )
 }

@@ -1,17 +1,14 @@
 import React from 'react'
-import { useAuthState } from './context/AuthContext'
-import LandingPage from './screens/LandingPage'
-const AuthenticatedApp = React.lazy(() =>
-  import(/* webpackPrefetch: true*/ './AuthenticatedApp'),
-)
-const UnAuthenticatedApp = React.lazy(() => import('./UnAuthenticatedApp'))
+import { useAuth } from './context/AuthContext'
+import AuthenticatedApp from './AuthenticatedApp'
+import UnAuthenticatedApp from './UnAuthenticatedApp'
 
 const App: React.FC = () => {
-  const { user } = useAuthState()
+  const { user } = useAuth()
   return (
-    <React.Suspense fallback={<LandingPage />}>
+    <React.Fragment>
       {user ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
-    </React.Suspense>
+    </React.Fragment>
   )
 }
 

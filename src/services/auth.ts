@@ -1,10 +1,10 @@
 import { auth } from '../config/firebaseConfig'
 
-export function loginUserWithEmailAndPassword(email: string, password: string) {
+function loginUserWithEmailAndPassword(email: string, password: string) {
   return auth.signInWithEmailAndPassword(email, password)
 }
 
-export function signOut() {
+function signOut() {
   auth
     .signOut()
     .then(() => {
@@ -14,3 +14,5 @@ export function signOut() {
       console.log(err)
     })
 }
+
+export { loginUserWithEmailAndPassword, signOut }

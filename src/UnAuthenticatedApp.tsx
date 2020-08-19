@@ -1,12 +1,18 @@
 import React from 'react'
-import Login from './components/Login'
+// import Login from './components/Login'
+// import Register from './components/Register'
+import { Router } from '@reach/router'
+import Route from './components/Route'
+import Home from './components/Home'
 
-const UnAthenticatedApp: React.FC = () => {
+const UnAuthenticatedApp: React.FC = () => {
   return (
-    <div>
-      <Login />
-    </div>
+    <Router>
+      <Route component={Home} path="/" />
+      {/* <Route component={Login} path="/login" />
+      <Route component={Register} path="/register" /> */}
+    </Router>
   )
 }
 
-export default UnAthenticatedApp
+export default UnAuthenticatedApp

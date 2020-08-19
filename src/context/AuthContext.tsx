@@ -1,62 +1,90 @@
-import React, { createContext, ReactNode, useState, useEffect } from 'react'
+import React, { createContext, ReactNode, useState } from 'react'
+import { loginUserWithEmailAndPassword } from '../services/auth'
 import { firebase } from '../config/firebaseConfig'
-import LandingPage from '../screens/LandingPage'
+
 type AuthContextType = {
   status: string
   user: firebase.User | null
-  error: firebase.auth.Error | null
-  login: () => void
+  error: string
+  login: (email: string, password: string) => void
   logout: () => void
-  register: () => void
+  register: (email: string, password: string) => void
 }
 
-export const AuthContext = createContext<Partial<AuthContextType>>({})
-AuthContext.displayName = 'AuthContext'
+const AuthContext = createContext<AuthContextType>({
+  status: 'idle',
+  user: null,
+  error: '',
+  login: () => {},
+  logout: () => {},
+  register: () => {},
+})
+
+function getUserFromLocalStorage(): firebase.User | null {
+  let storedUserJson: string | null
+  let userObj: firebase.User | null = null as firebase.User | null
+
+  try {
+    storedUserJson = localStorage.getItem('User')
+    if (storedUserJson) {
+      userObj = JSON.parse(storedUserJson)
+    }
+  } catch (err) {
+    console.log('Error fetching data from local storage', err)
+  }
+
+  return userObj
+}
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [state, setState] = useState({
-    status: 'pending',
-    user: null as firebase.User | null,
-    error: null as firebase.auth.Error | null,
+  const [authState, setAuthState] = useState({
+    status: 'idle',
+    user: getUserFromLocalStorage(),
+    error: '',
   })
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(
-      user => {
-        setState({ status: 'success', error: null, user: user })
-      },
-      err => setState({ status: 'error', error: err, user: null }),
-    )
-  }, [])
+  function login(email: string, password: string) {
+    setAuthState(prevState => ({ ...prevState, status: 'pending' }))
 
-  function login() {}
+    loginUserWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        localStorage.setItem('User', JSON.stringify(user))
+        setAuthState({
+          status: 'success',
+          user: user,
+          error: '',
+        })
+      })
+      .catch((err: firebase.auth.Error) => {
+        setAuthState({
+          status: 'rejected',
+          user: null,
+          error: err.message,
+        })
+      })
+  }
+
   function logout() {}
   function register() {}
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout, register }}>
-      {state.status === 'pending' ? (
-        <LandingPage />
-      ) : state.status === 'error' ? (
-        <div>{state.error?.message}</div>
-      ) : (
-        children
-      )}
+    <AuthContext.Provider value={{ ...authState, login, logout, register }}>
+      {children}
     </AuthContext.Provider>
   )
 }
 
-export function useAuthState() {
+export function useAuth() {
   const state = React.useContext(AuthContext)
   const isPending = state.status === 'pending'
-  const isSuccess = state.status === 'success'
   const isError = state.status === 'error'
+  const isSuccess = state.status === 'success'
 
   return {
     ...state,
     isPending,
-    isSuccess,
     isError,
+    isSuccess,
   }
 }
 

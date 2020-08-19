@@ -1,21 +1,15 @@
 import React from 'react'
-import { signOut } from './services/auth'
+import { Router, Redirect } from '@reach/router'
+import Route from './components/Route'
+import Tasks from './components/Tasks'
 
-function App() {
-  async function handleLogoutBtnClick() {
-    try {
-      await signOut()
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
+function AuthenticatedApp() {
   return (
-    <>
-      <h1>ToDo App</h1>
-      <button onClick={handleLogoutBtnClick}>Logout</button>
-    </>
+    <Router>
+      <Redirect from="/" to="/tasks" noThrow />
+      <Route component={Tasks} path="/tasks" />
+    </Router>
   )
 }
 
-export default App
+export default AuthenticatedApp
