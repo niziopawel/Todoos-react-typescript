@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   console.log(error)
 
   function handleSubmit() {
-    const email = 'niziopawel1@mail.com'
+    const email = 'niziopawel1@gmail.com'
     const password = 'password'
 
     login(email, password)

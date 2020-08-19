@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useState } from 'react'
-import { loginUserWithEmailAndPassword } from '../services/auth'
+import { loginUserWithEmailAndPassword, signOut } from '../services/auth'
 import { firebase } from '../config/firebaseConfig'
 
 type AuthContextType = {
@@ -64,7 +64,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
-  function logout() {}
+  function logout() {
+    setAuthState(prevState => ({ ...prevState, status: 'pending' }))
+
+    signOut().then(() => {
+      setAuthState({ status: 'idle', user: null, error: '' })
+      localStorage.removeItem('User')
+    })
+  }
+
   function register() {}
 
   return (

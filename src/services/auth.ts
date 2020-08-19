@@ -5,14 +5,7 @@ function loginUserWithEmailAndPassword(email: string, password: string) {
 }
 
 function signOut() {
-  auth
-    .signOut()
-    .then(() => {
-      console.log('return to login screen')
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  return auth.signOut()
 }
 
 export { loginUserWithEmailAndPassword, signOut }
