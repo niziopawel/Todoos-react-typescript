@@ -14,11 +14,11 @@ const LandingPage: React.FC = () => {
         align-items: center;
 
         div:first-of-type {
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
       `}
     >
-      <Logo logoSize={70} />
+      <Logo logoSize={90} />
       <Spinner spinnerSize={30} />
     </div>
   )

@@ -3,11 +3,10 @@ import React from 'react'
 // import Register from './components/Register'
 import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'
-import Home from './components/Home'
+import Home from './screens/Home'
 import NotFound from './screens/NotFound'
 
 const UnAuthenticatedApp: React.FC = () => {
-  console.log('unauthenticated-app')
   return (
     <Router>
       <Route component={Home} path="/" />
