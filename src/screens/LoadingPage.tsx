@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React from 'react'
-import { Logo, Spinner } from '../components/lib'
+import { Logo } from '../components/lib'
+import Spinner from '../components/Spinner'
 
 const LandingPage: React.FC = () => {
   return (
