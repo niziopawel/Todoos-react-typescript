@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { css, jsx, keyframes } from '@emotion/core'
-
+import { css, jsx } from '@emotion/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAccusoft } from '@fortawesome/free-brands-svg-icons'
 

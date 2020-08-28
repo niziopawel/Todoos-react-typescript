@@ -13,6 +13,7 @@ const typography = css`
   :root {
     --base-size: 16px;
     --type-scale: 1.125;
+    --text-4xl: calc(var(--text-xxxl) * var(--type-scale));
     --text-xxxl: calc(var(--text-xxl) * var(--type-scale));
     --text-xxl: calc(var(--text-lg) * var(--type-scale));
     --text-xl: calc(var(--text-lg) * var(--type-scale));
@@ -26,6 +27,10 @@ const typography = css`
     font-size: var(--base-size);
     letter-spacing: 0.5;
     font-weight: 400;
+  }
+
+  .text-4xl {
+    font-size: var(--text-4xl);
   }
 
   h1,
@@ -77,7 +82,6 @@ const typography = css`
   button {
     font-size: var(--base-size);
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 1.15px;
   }
   small,

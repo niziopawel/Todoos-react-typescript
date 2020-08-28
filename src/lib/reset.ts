@@ -36,6 +36,10 @@ const reset = css`
   form {
     margin: 0;
   }
+  button {
+    border: none;
+    text-decoration: none;
+  }
 
   ${typography}
 `

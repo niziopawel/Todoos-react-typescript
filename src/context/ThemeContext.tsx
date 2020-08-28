@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useEffect,
-} from 'react'
+import React, { createContext, useContext, ReactNode, useState } from 'react'
 import { ColorTheme, ThemeType, theme } from '../lib/theme'
 
 type ThemeContextType = {

@@ -1,10 +1,10 @@
 export type ColorTheme = {
-  primary: string
-  primaryVariant: string
-  secondary: string
-  secondaryVariant: string
-  bc: string
-  err: string
+  primaryColor: string
+  primaryColorVariant: string
+  secondaryColor: string
+  secondaryColorVariant: string
+  bgColor: string
+  errColor: string
   onPrimaryColor: string
   onSecondaryColor: string
   onBackgroundColor: string
@@ -12,12 +12,12 @@ export type ColorTheme = {
 }
 
 const defaultTheme: ColorTheme = {
-  primary: '#6200EE',
-  primaryVariant: '#3700B3',
-  secondary: '#03DAC6',
-  secondaryVariant: '#018786',
-  bc: '#fff',
-  err: '#B00020',
+  primaryColor: '#6200EE',
+  primaryColorVariant: '#3700B3',
+  secondaryColor: '#03DAC6',
+  secondaryColorVariant: '#018786',
+  bgColor: '#fff',
+  errColor: '#B00020',
   onPrimaryColor: '#fff',
   onSecondaryColor: '#000',
   onBackgroundColor: '#000',
@@ -25,12 +25,12 @@ const defaultTheme: ColorTheme = {
 }
 
 const darkTheme: ColorTheme = {
-  primary: '#BB86FC',
-  primaryVariant: '#3700B3',
-  secondary: '#03DAC6',
-  secondaryVariant: '#018786',
-  bc: '#121212',
-  err: '#CF6679',
+  primaryColor: '#BB86FC',
+  primaryColorVariant: '#3700B3',
+  secondaryColor: '#03DAC6',
+  secondaryColorVariant: '#018786',
+  bgColor: '#121212',
+  errColor: '#CF6679',
   onPrimaryColor: '#000',
   onSecondaryColor: '#000',
   onBackgroundColor: '#fff',

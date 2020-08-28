@@ -20,7 +20,7 @@ const LandingPage: React.FC = () => {
       `}
     >
       <Logo logoSize={90} />
-      <Spinner spinnerSize={30} />
+      <Spinner spinnerSize={50} />
     </div>
   )
 }
