@@ -7,6 +7,7 @@ function AuthenticatedApp() {
   return (
     <Router>
       <Redirect from="/" to="/tasks" noThrow />
+      <Redirect from="/login" to="/tasks" noThrow />
       <Route component={Tasks} path="/tasks" />
     </Router>
   )

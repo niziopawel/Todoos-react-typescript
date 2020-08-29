@@ -2,10 +2,10 @@ export const breakpoints: { [breakpointName: string]: number } = {
   bigDesktop: 1312,
   desktop: 992,
   tablet: 767,
-  phone: 374,
+  phone: 576,
 }
 
-interface IMediaQuery {
+type IMediaQuery = {
   [mediaName: string]: string
 }
 

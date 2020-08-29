@@ -11,8 +11,8 @@ export const fonts = {
 
 const typography = css`
   :root {
-    --base-size: 16px;
-    --type-scale: 1.125;
+    --base-size: 14px;
+    --type-scale: 1.2;
     --text-4xl: calc(var(--text-xxxl) * var(--type-scale));
     --text-xxxl: calc(var(--text-xxl) * var(--type-scale));
     --text-xxl: calc(var(--text-lg) * var(--type-scale));
@@ -26,11 +26,12 @@ const typography = css`
   body {
     font-size: var(--base-size);
     letter-spacing: 0.5;
-    font-weight: 400;
+    font-weight: 100;
   }
 
   .text-4xl {
     font-size: var(--text-4xl);
+    font-weight: 100;
   }
 
   h1,
@@ -84,6 +85,12 @@ const typography = css`
     font-weight: 600;
     letter-spacing: 1.15px;
   }
+
+  label {
+    font-size: var(--base-size);
+    font-weight: 500;
+  }
+
   small,
   .text-xs {
     font-size: var(--text-xs);

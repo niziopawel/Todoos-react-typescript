@@ -5,7 +5,7 @@ import { firebase } from '../config/firebaseConfig'
 type AuthContextType = {
   status: string
   user: firebase.User | null
-  error: string
+  resError: string
   login: (email: string, password: string) => void
   logout: () => void
   register: (email: string, password: string) => void
@@ -14,7 +14,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   status: 'idle',
   user: null,
-  error: '',
+  resError: '',
   login: () => {},
   logout: () => {},
   register: () => {},
@@ -40,11 +40,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authState, setAuthState] = useState({
     status: 'idle',
     user: getUserFromLocalStorage(),
-    error: '',
+    resError: '',
   })
 
   function login(email: string, password: string) {
-    setAuthState(prevState => ({ ...prevState, status: 'pending' }))
+    setAuthState(prevState => ({
+      ...prevState,
+      status: 'pending',
+      resError: '',
+    }))
 
     loginUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
@@ -52,14 +56,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setAuthState({
           status: 'success',
           user: user,
-          error: '',
+          resError: '',
         })
       })
       .catch((err: firebase.auth.Error) => {
         setAuthState({
           status: 'rejected',
           user: null,
-          error: err.message,
+          resError: err.message,
         })
       })
   }
@@ -68,7 +72,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthState(prevState => ({ ...prevState, status: 'pending' }))
 
     signOut().then(() => {
-      setAuthState({ status: 'idle', user: null, error: '' })
+      setAuthState({ status: 'idle', user: null, resError: '' })
       localStorage.removeItem('User')
     })
   }
@@ -84,13 +88,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export function useAuth() {
   const state = React.useContext(AuthContext)
-  const isPending = state.status === 'pending'
+  const isLoading = state.status === 'pending'
   const isError = state.status === 'error'
   const isSuccess = state.status === 'success'
 
   return {
     ...state,
-    isPending,
+    isLoading,
     isError,
     isSuccess,
   }

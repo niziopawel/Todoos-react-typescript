@@ -4,30 +4,37 @@ import { useTheme } from '../context/ThemeContext'
 import React, { ReactNode } from 'react'
 
 type ButtonProps = {
-  onClick: () => void
+  onClick?: (event: React.MouseEvent) => void
+  type?: 'button' | 'submit'
   children: ReactNode
   primary?: boolean
   outlined?: boolean
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
   onClick,
+  type,
   children,
   primary,
   outlined,
+  disabled,
 }) => {
   const { activeTheme } = useTheme()
   const { primaryColor, onPrimaryColor } = activeTheme
+
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
-    console.log(event.target)
-    onClick()
+    if (onClick) {
+      onClick(event)
+    }
   }
 
   return (
     <button
+      type={type}
       css={css`
-        padding: 10px 20px;
+        padding: 0.5rem 1rem;
         border-radius: 4px;
         cursor: pointer;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
@@ -57,7 +64,8 @@ const Button: React.FC<ButtonProps> = ({
           }
         `};
       `}
-      onClick={handleClick}
+      onClick={type === 'button' ? handleClick : undefined}
+      disabled={disabled}
     >
       {children}
     </button>

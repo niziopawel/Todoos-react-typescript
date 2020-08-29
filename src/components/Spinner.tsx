@@ -20,7 +20,14 @@ const turn = keyframes({
     transform: 'rotate(450deg)',
   },
 })
-const Spinner = ({ spinnerSize = 40 }) => {
+
+const Spinner = ({
+  spinnerSize = 40,
+  color,
+}: {
+  spinnerSize: number
+  color: string
+}) => {
   return (
     <svg
       css={css`
@@ -30,10 +37,11 @@ const Spinner = ({ spinnerSize = 40 }) => {
       height={`${spinnerSize}px`}
       viewBox="0 0 66 66"
       xmlns="http://wwww.w3.org/2000/svg"
+      aria-label="loading"
     >
       <circle
         css={css`
-          stroke: black;
+          stroke: ${color};
           stroke-dasharray: 180;
           stroke-dashoffset: 0;
           transform-origin: center;
