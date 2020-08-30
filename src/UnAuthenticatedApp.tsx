@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from './components/Login'
+import Login from './screens/Login'
 // import Register from './components/Register'
 import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'

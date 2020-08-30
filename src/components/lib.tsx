@@ -1,9 +1,26 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import { ReactNode } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAccusoft } from '@fortawesome/free-brands-svg-icons'
 import { theme } from '../lib/theme'
 import styled from '@emotion/styled'
+import { useTheme } from '../context/ThemeContext'
+
+const ErrorMessage = ({ children }: { children: ReactNode }) => {
+  const { activeTheme } = useTheme()
+
+  return (
+    <div
+      css={css`
+        color: ${activeTheme.errColor};
+        padding-top: 5px;
+      `}
+    >
+      {children}
+    </div>
+  )
+}
 
 const Logo = ({ logoSize = 50 }) => {
   return (
@@ -31,4 +48,4 @@ const Input = styled('input')`
   padding: 0.5rem 1rem;
 `
 
-export { Logo, FormGroup, Input }
+export { Logo, FormGroup, Input, ErrorMessage }

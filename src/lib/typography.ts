@@ -15,7 +15,7 @@ const typography = css`
     --type-scale: 1.2;
     --text-4xl: calc(var(--text-xxxl) * var(--type-scale));
     --text-xxxl: calc(var(--text-xxl) * var(--type-scale));
-    --text-xxl: calc(var(--text-lg) * var(--type-scale));
+    --text-xxl: calc(var(--text-xl) * var(--type-scale));
     --text-xl: calc(var(--text-lg) * var(--type-scale));
     --text-lg: calc(var(--text-md) * var(--type-scale));
     --text-md: calc(var(--text-sm) * var(--type-scale));
