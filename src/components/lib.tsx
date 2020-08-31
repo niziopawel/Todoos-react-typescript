@@ -14,7 +14,6 @@ const ErrorMessage = ({ children }: { children: ReactNode }) => {
     <div
       css={css`
         color: ${activeTheme.errColor};
-        padding-top: 5px;
       `}
     >
       {children}
@@ -38,6 +37,10 @@ const Logo = ({ logoSize = 50 }) => {
 const FormGroup = styled('div')`
   display: flex;
   flex-direction: column;
+
+  & > * {
+    padding-bottom: 5px;
+  }
 `
 
 const Input = styled('input')`

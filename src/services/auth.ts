@@ -8,4 +8,8 @@ function signOut() {
   return auth.signOut()
 }
 
-export { loginUserWithEmailAndPassword, signOut }
+function registerWithEmailAndPassword(email: string, password: string) {
+  return auth.createUserWithEmailAndPassword(email, password)
+}
+
+export { loginUserWithEmailAndPassword, signOut, registerWithEmailAndPassword }
