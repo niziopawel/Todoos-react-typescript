@@ -1,45 +1,60 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import styled from '@emotion/styled'
 import React from 'react'
 import Button from '../components/Button'
 import { Container } from '../components/layouts'
-import { Logo } from '../components/lib'
 import { mq } from '../lib/mediaQueries'
 import { navigate } from '@reach/router'
+import { ReactComponent as TodoSVG } from '../svg/todo.svg'
 
-// const HomeNav: React.FC = () => {
+const HomeContent = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
 
-// }
+const HeadingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  & > * {
+    margin-bottom: 20px;
+    ${mq['tablet']} {
+      margin-bottom: 20px;
+    }
+  }
+`
 
 const Home: React.FC = () => {
   return (
     <Container>
-      <div
-        css={css`
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          align-items: center;
+      <HomeContent>
+        <HeadingBox>
+          <h1 className="text-4xl">Todoos</h1>
+          <h5>With Todoos you can organise everything</h5>
+          <Button primary type="button" onClick={() => navigate('/login')}>
+            Get started
+          </Button>
+        </HeadingBox>
+        <TodoSVG
+          css={css`
+            max-width: 300px;
+            height: auto;
 
-          & > div,
-          h1,
-          h5 {
-            margin-bottom: 20px;
+            ${mq['phone']} {
+              max-width: 600px;
+            }
 
             ${mq['tablet']} {
-              margin-bottom: 30px;
+              max-width: 900px;
             }
-          }
-        `}
-      >
-        <Logo logoSize={80} />
-        <h1 className="text-4xl">Todoos</h1>
-        <h5>With Todoos you can organise everything</h5>
-        <Button primary type="button" onClick={() => navigate('/login')}>
-          Get started
-        </Button>
-      </div>
+          `}
+        />
+      </HomeContent>
     </Container>
   )
 }

@@ -39,7 +39,7 @@ const FormGroup = styled('div')`
   flex-direction: column;
 
   & > * {
-    padding-bottom: 5px;
+    margin-bottom: 5px;
   }
 `
 

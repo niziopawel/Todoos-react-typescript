@@ -2,14 +2,17 @@ import React, { createContext, ReactNode, useState } from 'react'
 import { loginUserWithEmailAndPassword, signOut } from '../services/auth'
 import { firebase } from '../config/firebaseConfig'
 
-type AuthContextType = {
-  status: string
+type AuthStateType = {
+  status: 'idle' | 'pending' | 'success' | 'error'
   user: firebase.User | null
   resError: string
+}
+
+type AuthContextType = {
   login: (email: string, password: string) => void
   logout: () => void
   register: (email: string, password: string) => void
-}
+} & AuthStateType
 
 const AuthContext = createContext<AuthContextType>({
   status: 'idle',
@@ -37,7 +40,7 @@ function getUserFromLocalStorage(): firebase.User | null {
 }
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [authState, setAuthState] = useState({
+  const [authState, setAuthState] = useState<AuthStateType>({
     status: 'idle',
     user: getUserFromLocalStorage(),
     resError: '',
@@ -61,7 +64,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       })
       .catch((err: firebase.auth.Error) => {
         setAuthState({
-          status: 'rejected',
+          status: 'error',
           user: null,
           resError: err.message,
         })

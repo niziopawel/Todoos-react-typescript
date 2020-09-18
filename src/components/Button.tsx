@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       css={css`
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1rem;
         border-radius: 4px;
         cursor: pointer;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
