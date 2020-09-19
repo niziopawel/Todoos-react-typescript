@@ -3,13 +3,12 @@ import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 import React from 'react'
 import Button from '../components/Button'
-import { Container } from '../components/layouts'
 import { mq } from '../lib/mediaQueries'
 import { navigate } from '@reach/router'
 import { ReactComponent as TodoSVG } from '../svg/todo.svg'
 
-const HomeContent = styled.div`
-  height: 100%;
+const HomeContainer = styled.div`
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,31 +30,29 @@ const HeadingBox = styled.div`
 
 const Home: React.FC = () => {
   return (
-    <Container>
-      <HomeContent>
-        <HeadingBox>
-          <h1 className="text-4xl">Todoos</h1>
-          <h5>With Todoos you can organise everything</h5>
-          <Button primary type="button" onClick={() => navigate('/login')}>
-            Get started
-          </Button>
-        </HeadingBox>
-        <TodoSVG
-          css={css`
-            max-width: 300px;
-            height: auto;
+    <HomeContainer>
+      <HeadingBox>
+        <h1 className="text-4xl">Todoos</h1>
+        <h5>With Todoos you can organise everything</h5>
+        <Button primary type="button" onClick={() => navigate('/signin')}>
+          Get started
+        </Button>
+      </HeadingBox>
+      <TodoSVG
+        css={css`
+          max-width: 300px;
+          height: auto;
 
-            ${mq['phone']} {
-              max-width: 600px;
-            }
+          ${mq['phone']} {
+            max-width: 600px;
+          }
 
-            ${mq['tablet']} {
-              max-width: 900px;
-            }
-          `}
-        />
-      </HomeContent>
-    </Container>
+          ${mq['tablet']} {
+            max-width: 900px;
+          }
+        `}
+      />
+    </HomeContainer>
   )
 }
 

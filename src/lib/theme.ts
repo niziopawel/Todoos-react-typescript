@@ -1,5 +1,6 @@
 export type ColorTheme = {
   primaryColor: string
+  onPrimaryHover: string
   primaryColorVariant: string
   secondaryColor: string
   secondaryColorVariant: string
@@ -13,6 +14,7 @@ export type ColorTheme = {
 
 const defaultTheme: ColorTheme = {
   primaryColor: '#6200EE',
+  onPrimaryHover: '#710EFF',
   primaryColorVariant: '#3700B3',
   secondaryColor: '#03DAC6',
   secondaryColorVariant: '#018786',
@@ -26,6 +28,7 @@ const defaultTheme: ColorTheme = {
 
 const darkTheme: ColorTheme = {
   primaryColor: '#BB86FC',
+  onPrimaryHover: '#964df0',
   primaryColorVariant: '#3700B3',
   secondaryColor: '#03DAC6',
   secondaryColorVariant: '#018786',

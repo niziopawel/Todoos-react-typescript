@@ -10,9 +10,9 @@ import { useTheme } from '../context/ThemeContext'
 import { useAuth } from '../context/AuthContext'
 import Button from '../components/Button'
 
-const Register: React.FC = () => {
+const SignUp: React.FC = () => {
   const { activeTheme } = useTheme()
-  const { register, resError, isLoading } = useAuth()
+  const { register, serverError, isLoading } = useAuth()
 
   const [formValues, setFormValues] = useState({
     email: '',
@@ -60,7 +60,7 @@ const Register: React.FC = () => {
     <div
       css={css`
         max-width: 400px;
-        margin: 0 auto;
+        margin: 40px auto;
       `}
     >
       <Form onSubmit={handleSubmit}>
@@ -76,7 +76,11 @@ const Register: React.FC = () => {
               setFormValues({ ...formValues, email: e.target.value })
             }
           />
-          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+          {errors.email && (
+            <ErrorMessage color={activeTheme.errColor}>
+              {errors.email}
+            </ErrorMessage>
+          )}
         </FormGroup>
         <FormGroup>
           <label htmlFor="password">Password</label>
@@ -89,7 +93,11 @@ const Register: React.FC = () => {
               setFormValues({ ...formValues, password: e.target.value })
             }
           />
-          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+          {errors.password && (
+            <ErrorMessage color={activeTheme.errColor}>
+              {errors.password}
+            </ErrorMessage>
+          )}
         </FormGroup>
         <FormGroup>
           <label htmlFor="confirmPassword">Confirm Password</label>
@@ -103,13 +111,19 @@ const Register: React.FC = () => {
             }
           />
           {errors.confirmPassword && (
-            <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
+            <ErrorMessage color={activeTheme.errColor}>
+              {errors.confirmPassword}
+            </ErrorMessage>
           )}
         </FormGroup>
         <Button type="submit" primary>
           Log in
         </Button>
-        {resError && <ErrorMessage>{resError}</ErrorMessage>}
+        {serverError && (
+          <ErrorMessage color={activeTheme.errColor}>
+            {serverError}
+          </ErrorMessage>
+        )}
 
         {isLoading && (
           <div
@@ -125,4 +139,4 @@ const Register: React.FC = () => {
   )
 }
 
-export default Register
+export default SignUp

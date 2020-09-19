@@ -10,14 +10,15 @@ import Form from '../components/Form'
 import { ErrorMessage } from '../components/lib'
 import { validateEmail, validatePassword } from './utils/validation'
 
-const Login: React.FC = () => {
+const SignIn: React.FC = () => {
   const { activeTheme } = useTheme()
-  const { login, resError, isLoading } = useAuth()
+  const { login, serverError, isLoading } = useAuth()
 
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
   })
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
@@ -43,12 +44,11 @@ const Login: React.FC = () => {
     } else return false
   }
 
-  console.log(errors)
   return (
     <div
       css={css`
         max-width: 400px;
-        margin: 0 auto;
+        margin: 40px auto;
       `}
     >
       <Form onSubmit={handleSubmit}>
@@ -64,7 +64,11 @@ const Login: React.FC = () => {
               setFormValues({ ...formValues, email: e.target.value })
             }
           />
-          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+          {errors.email && (
+            <ErrorMessage color={activeTheme.errColor}>
+              {errors.email}
+            </ErrorMessage>
+          )}
         </FormGroup>
 
         <FormGroup>
@@ -78,14 +82,22 @@ const Login: React.FC = () => {
               setFormValues({ ...formValues, password: e.target.value })
             }
           />
-          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+          {errors.password && (
+            <ErrorMessage color={activeTheme.errColor}>
+              {errors.password}
+            </ErrorMessage>
+          )}
         </FormGroup>
 
         <Button type="submit" primary>
           Log In
         </Button>
 
-        {resError && <ErrorMessage>{resError}</ErrorMessage>}
+        {serverError && (
+          <ErrorMessage color={activeTheme.errColor}>
+            {serverError}
+          </ErrorMessage>
+        )}
 
         {isLoading && (
           <div
@@ -101,4 +113,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default SignIn

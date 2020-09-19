@@ -1,25 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { ReactNode } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAccusoft } from '@fortawesome/free-brands-svg-icons'
 import { theme } from '../lib/theme'
 import styled from '@emotion/styled'
-import { useTheme } from '../context/ThemeContext'
+import { FcTodoList } from 'react-icons/fc'
 
-const ErrorMessage = ({ children }: { children: ReactNode }) => {
-  const { activeTheme } = useTheme()
-
-  return (
-    <div
-      css={css`
-        color: ${activeTheme.errColor};
-      `}
-    >
-      {children}
-    </div>
-  )
-}
+const ErrorMessage = styled('p')`
+  color: ${({ color }: { color: string }) => color};
+`
 
 const Logo = ({ logoSize = 50 }) => {
   return (
@@ -29,7 +16,7 @@ const Logo = ({ logoSize = 50 }) => {
         color: ${theme.defaultTheme.primaryColor};
       `}
     >
-      <FontAwesomeIcon icon={faAccusoft} />
+      <FcTodoList />
     </div>
   )
 }

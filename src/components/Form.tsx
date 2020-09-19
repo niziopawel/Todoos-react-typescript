@@ -6,7 +6,6 @@ const StyledForm = styled('form')`
   display: flex;
   flex-direction: column;
   padding: 15px;
-  margin: 40px 0;
   border: 0;
   flex-basis: 100%;
 

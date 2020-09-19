@@ -1,6 +1,6 @@
 import React from 'react'
-import Login from './screens/Login'
-import Register from './screens/Register'
+import SignIn from './screens/SignIn'
+import SignUp from './screens/SignUp'
 import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'
 import Home from './screens/Home'
@@ -10,9 +10,9 @@ const UnAuthenticatedApp: React.FC = () => {
   return (
     <Router>
       <Route component={Home} path="/" />
-      <Redirect from="tasks" to="/" noThrow />
-      <Route component={Login} path="/login" />
-      <Route component={Register} path="/register" />
+      <Redirect from="/tasks" to="/" noThrow />
+      <Route component={SignIn} path="/signin" />
+      <Route component={SignUp} path="/signup" />
       <Route component={NotFound} default />
     </Router>
   )

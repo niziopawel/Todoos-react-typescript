@@ -21,10 +21,11 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
 }) => {
   const { activeTheme } = useTheme()
-  const { primaryColor, onPrimaryColor } = activeTheme
+  const { primaryColor, onPrimaryColor, onPrimaryHover } = activeTheme
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
+    event.currentTarget.blur()
     if (onClick) {
       onClick(event)
     }
@@ -46,7 +47,7 @@ const Button: React.FC<ButtonProps> = ({
           color: ${onPrimaryColor};
 
           &:hover {
-            background: #710EFF;
+            background: ${onPrimaryHover} ;
           }
           &:focus {
             background: #5D00E2;
@@ -64,7 +65,7 @@ const Button: React.FC<ButtonProps> = ({
           }
         `};
       `}
-      onClick={type === 'button' ? handleClick : undefined}
+      onClick={type === 'button' ? e => handleClick(e) : undefined}
       disabled={disabled}
     >
       {children}

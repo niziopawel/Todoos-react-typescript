@@ -1,34 +1,58 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react'
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react'
 import { ColorTheme, ThemeType, theme } from '../lib/theme'
 
 type ThemeContextType = {
   theme: ThemeType
   activeTheme: ColorTheme
-  changeColorTheme: () => void
+  switchTheme: () => void
+  resetThemeToDefault: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: theme,
   activeTheme: theme.defaultTheme,
-  changeColorTheme: () => {},
+  switchTheme: () => {},
+  resetThemeToDefault: () => {},
 })
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [activeTheme, setActiveTheme] = useState(theme.defaultTheme)
 
-  // useEffect(() => {
-  //   fetch theme from user
-  //   const storedTHeme = window.localStorage.getItem('theme')
-  // })
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem('theme')
+    if (
+      (storedTheme !== null && storedTheme === 'darkTheme') ||
+      storedTheme === 'defaultTheme'
+    ) {
+      setActiveTheme(theme[storedTheme])
+    } else {
+      setActiveTheme(theme.defaultTheme)
+    }
+  }, [])
 
-  const changeColorTheme = () => {
-    activeTheme === theme.defaultTheme
-      ? setActiveTheme(theme.darkTheme)
-      : setActiveTheme(theme.defaultTheme)
+  function switchTheme() {
+    if (activeTheme === theme.defaultTheme) {
+      setActiveTheme(theme.darkTheme)
+      window.localStorage.setItem('theme', 'darkTheme')
+    } else {
+      setActiveTheme(theme.defaultTheme)
+      window.localStorage.setItem('theme', 'defaultTheme')
+    }
+  }
+  function resetThemeToDefault() {
+    setActiveTheme(theme.defaultTheme)
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, activeTheme, changeColorTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, activeTheme, switchTheme, resetThemeToDefault }}
+    >
       {children}
     </ThemeContext.Provider>
   )

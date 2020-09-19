@@ -5,7 +5,7 @@ import { firebase } from '../config/firebaseConfig'
 type AuthStateType = {
   status: 'idle' | 'pending' | 'success' | 'error'
   user: firebase.User | null
-  resError: string
+  serverError: string
 }
 
 type AuthContextType = {
@@ -17,7 +17,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   status: 'idle',
   user: null,
-  resError: '',
+  serverError: '',
   login: () => {},
   logout: () => {},
   register: () => {},
@@ -43,14 +43,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authState, setAuthState] = useState<AuthStateType>({
     status: 'idle',
     user: getUserFromLocalStorage(),
-    resError: '',
+    serverError: '',
   })
 
   function login(email: string, password: string) {
     setAuthState(prevState => ({
       ...prevState,
       status: 'pending',
-      resError: '',
+      serverError: '',
     }))
 
     loginUserWithEmailAndPassword(email, password)
@@ -59,14 +59,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setAuthState({
           status: 'success',
           user: user,
-          resError: '',
+          serverError: '',
         })
       })
       .catch((err: firebase.auth.Error) => {
         setAuthState({
           status: 'error',
           user: null,
-          resError: err.message,
+          serverError: err.message,
         })
       })
   }
@@ -75,8 +75,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthState(prevState => ({ ...prevState, status: 'pending' }))
 
     signOut().then(() => {
-      setAuthState({ status: 'idle', user: null, resError: '' })
-      localStorage.removeItem('User')
+      setAuthState({ status: 'idle', user: null, serverError: '' })
+      localStorage.clear()
     })
   }
 
