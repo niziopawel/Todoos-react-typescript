@@ -8,6 +8,7 @@ type ButtonProps = {
   type?: 'button' | 'submit'
   children: ReactNode
   primary?: boolean
+  cancel?: boolean
   outlined?: boolean
   disabled?: boolean
 }
@@ -17,11 +18,18 @@ const Button: React.FC<ButtonProps> = ({
   type,
   children,
   primary,
-  outlined,
+  cancel,
   disabled,
 }) => {
   const { activeTheme } = useTheme()
-  const { primaryColor, onPrimaryColor, onPrimaryHover } = activeTheme
+  const {
+    primaryColor,
+    onPrimaryColor,
+    onPrimaryHover,
+    onPrimaryFocus,
+    bgColor,
+    onBackgroundColor,
+  } = activeTheme
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
@@ -40,6 +48,7 @@ const Button: React.FC<ButtonProps> = ({
         cursor: pointer;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
           0px 2px 4px -0.7px rgba(0, 0, 0, 0.25);
+        transition: all 0.1s ease-out;
 
         ${primary &&
         `
@@ -50,18 +59,22 @@ const Button: React.FC<ButtonProps> = ({
             background: ${onPrimaryHover} ;
           }
           &:focus {
-            background: #5D00E2;
+            background: ${onPrimaryFocus};
             outline: none;
           }
         `}
-        ${outlined &&
+        ${cancel &&
         `
-          background: ${onPrimaryColor};
-          color: ${primaryColor};
-          border: 1.5px solid ${primaryColor}; 
-
-          &:focus {
-            outline: none;
+          box-shadow: none;
+          font-weight: 400;
+          padding: 0;
+          padding-bottom: 2px;
+          border-radius: 0;
+          color: ${onBackgroundColor};
+          background: ${bgColor};
+          
+          &:hover {
+            border-bottom: 2px solid ${onBackgroundColor};
           }
         `};
       `}
