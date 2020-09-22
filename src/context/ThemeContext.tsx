@@ -5,17 +5,15 @@ import React, {
   useState,
   useEffect,
 } from 'react'
-import { ColorTheme, ThemeType, theme } from '../lib/theme'
+import { ColorTheme, theme } from '../lib/theme'
 
 type ThemeContextType = {
-  theme: ThemeType
   activeTheme: ColorTheme
   switchTheme: () => void
   resetThemeToDefault: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: theme,
   activeTheme: theme.defaultTheme,
   switchTheme: () => {},
   resetThemeToDefault: () => {},
@@ -51,7 +49,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ theme, activeTheme, switchTheme, resetThemeToDefault }}
+      value={{ activeTheme, switchTheme, resetThemeToDefault }}
     >
       {children}
     </ThemeContext.Provider>

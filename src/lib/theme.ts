@@ -1,3 +1,5 @@
+import { Dict } from '../utils/dictionary'
+
 export type ColorTheme = {
   primaryColor: string
   onPrimaryHover: string
@@ -43,12 +45,7 @@ const darkTheme: ColorTheme = {
   onErrColor: '#000',
 }
 
-export type ThemeType = {
-  defaultTheme: ColorTheme
-  darkTheme: ColorTheme
-}
-
-export const theme: ThemeType = {
+export const theme: Dict<ColorTheme> = {
   defaultTheme,
   darkTheme,
 }
