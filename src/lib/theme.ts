@@ -1,4 +1,6 @@
-export type ColorTheme = {
+import { Dict } from '../utils/dictionary'
+
+export type ColorThemeType = {
   primaryColor: string
   onPrimaryHover: string
   onPrimaryFocus: string
@@ -13,7 +15,7 @@ export type ColorTheme = {
   onErrColor: string
 }
 
-const defaultTheme: ColorTheme = {
+const defaultTheme: ColorThemeType = {
   primaryColor: '#6200EE',
   onPrimaryHover: '#710EFF',
   onPrimaryFocus: '#5D00E2',
@@ -28,7 +30,7 @@ const defaultTheme: ColorTheme = {
   onErrColor: '#fff',
 }
 
-const darkTheme: ColorTheme = {
+const darkTheme: ColorThemeType = {
   primaryColor: '#BB86FC',
   onPrimaryHover: '#964df0',
   onPrimaryFocus: '#783cc2',
@@ -43,12 +45,7 @@ const darkTheme: ColorTheme = {
   onErrColor: '#000',
 }
 
-export type ThemeType = {
-  defaultTheme: ColorTheme
-  darkTheme: ColorTheme
-}
-
-export const theme: ThemeType = {
+export const theme: Dict<ColorThemeType> = {
   defaultTheme,
   darkTheme,
 }
