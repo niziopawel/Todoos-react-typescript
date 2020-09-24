@@ -26,10 +26,10 @@ const Tasks: React.FC = () => {
       `}
     >
       <h1>ToDo App</h1>
-      <Button primary type="button" onClick={() => switchTheme()}>
+      <Button variant="primary" type="button" onClick={() => switchTheme()}>
         Switch theme
       </Button>
-      <Button primary type="button" onClick={handleClick}>
+      <Button variant="primary" type="button" onClick={handleClick}>
         Logout
       </Button>
     </div>

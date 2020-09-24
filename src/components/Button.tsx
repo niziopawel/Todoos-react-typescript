@@ -1,35 +1,83 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import styled from '@emotion/styled'
 import { useTheme } from '../context/ThemeContext'
+import { ColorThemeType } from '../lib/theme'
 import React, { ReactNode } from 'react'
 
+type ButtonSize = 'big' | 'medium' | 'small'
+type ButtonVariants = 'primary' | 'secondary' | 'tetriary'
 type ButtonProps = {
-  onClick?: (event: React.MouseEvent) => void
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
   type?: 'button' | 'submit'
   children: ReactNode
-  primary?: boolean
-  cancel?: boolean
-  outlined?: boolean
+  variant: ButtonVariants
   disabled?: boolean
+  size?: ButtonSize
+  theme?: ColorThemeType
 }
 
+const StyledButton = styled.button<ButtonProps>`
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 2px 4px -0.7px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease-out;
+
+  ${({ size }) => {
+    switch (size) {
+      case 'big':
+        return `font-size: 1.3rem; border-radius: 8px;`
+      case 'medium':
+        return `font-size: 1rem;`
+      case 'small':
+        return 'font-size: 0.8rem; letter-spacing: 1px;'
+    }
+  }}
+
+  ${({ disabled, variant, theme }) => {
+    if (!disabled) {
+      switch (variant) {
+        case 'primary':
+          return `
+          background: ${theme.primaryColor};
+          color: ${theme.onPrimaryColor};
+
+          &:hover {
+            background: ${theme.onPrimaryHover};
+          }
+          &:focus {
+            background: ${theme.onPrimaryFocus};
+            outline: none;
+          }
+        `
+        case 'secondary':
+          return `
+          box-shadow: none;
+          font-weight: 400;
+          padding: 0;
+          padding-bottom: 2px;
+          border-radius: 0;
+          color: ${theme.onBackgroundColor};
+          background: ${theme.bgColor};
+
+          &:hover {            
+            border-bottom: 2px solid ${theme.onBackgroundColor};
+          }
+          `
+      }
+    } else return `background: #ccc; color: #fff`
+  }}
+`
+
 const Button: React.FC<ButtonProps> = ({
-  onClick,
-  type,
   children,
-  primary,
-  cancel,
+  onClick,
+  size = 'medium',
+  variant,
+  type = 'submit',
   disabled,
 }) => {
   const { activeTheme } = useTheme()
-  const {
-    primaryColor,
-    onPrimaryColor,
-    onPrimaryHover,
-    onPrimaryFocus,
-    bgColor,
-    onBackgroundColor,
-  } = activeTheme
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
@@ -40,49 +88,16 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button
+    <StyledButton
+      theme={activeTheme}
+      onClick={type === 'button' ? handleClick : undefined}
+      size={size}
+      variant={variant}
       type={type}
-      css={css`
-        padding: 0.6rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
-          0px 2px 4px -0.7px rgba(0, 0, 0, 0.25);
-        transition: all 0.1s ease-out;
-
-        ${primary &&
-        `
-          background: ${primaryColor};
-          color: ${onPrimaryColor};
-
-          &:hover {
-            background: ${onPrimaryHover} ;
-          }
-          &:focus {
-            background: ${onPrimaryFocus};
-            outline: none;
-          }
-        `}
-        ${cancel &&
-        `
-          box-shadow: none;
-          font-weight: 400;
-          padding: 0;
-          padding-bottom: 2px;
-          border-radius: 0;
-          color: ${onBackgroundColor};
-          background: ${bgColor};
-          
-          &:hover {
-            border-bottom: 2px solid ${onBackgroundColor};
-          }
-        `};
-      `}
-      onClick={type === 'button' ? e => handleClick(e) : undefined}
       disabled={disabled}
     >
       {children}
-    </button>
+    </StyledButton>
   )
 }
 
