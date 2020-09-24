@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import React, { useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import Button from '../components/Button'
@@ -13,16 +13,19 @@ import { validateEmail, validatePassword } from './utils/validation'
 const SignIn: React.FC = () => {
   const { activeTheme } = useTheme()
   const { login, serverError, isLoading } = useAuth()
-
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
   })
-
   const [errors, setErrors] = useState({
     email: '',
     password: '',
   })
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
@@ -56,6 +59,7 @@ const SignIn: React.FC = () => {
         <FormGroup>
           <label htmlFor="email">Email</label>
           <Input
+            ref={inputRef}
             id="email"
             type="text"
             name="email"

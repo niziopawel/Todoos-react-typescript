@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Form from '../components/Form'
 import { ErrorMessage, Input } from '../components/lib'
 import { FormGroup } from '../components/lib'
@@ -13,7 +13,6 @@ import Button from '../components/Button'
 const SignUp: React.FC = () => {
   const { activeTheme } = useTheme()
   const { register, serverError, isLoading } = useAuth()
-
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -24,6 +23,11 @@ const SignUp: React.FC = () => {
     password: '',
     confirmPassword: '',
   })
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
@@ -68,6 +72,7 @@ const SignUp: React.FC = () => {
         <FormGroup>
           <label htmlFor="email">Email</label>
           <Input
+            ref={inputRef}
             id="email"
             type="text"
             name="email"
