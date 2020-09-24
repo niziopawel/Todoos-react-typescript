@@ -34,7 +34,11 @@ const Home: React.FC = () => {
       <HeadingBox>
         <h1 className="text-4xl">Todoos</h1>
         <h5>With Todoos you can organise everything</h5>
-        <Button primary type="button" onClick={() => navigate('/signin')}>
+        <Button
+          variant="primary"
+          type="button"
+          onClick={() => navigate('/signin')}
+        >
           Get started
         </Button>
       </HeadingBox>

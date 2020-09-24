@@ -23,6 +23,7 @@ const typography = css`
     --text-xs: calc(var(--base-size) / var(--type-scale));
   }
 
+  html,
   body {
     font-size: var(--base-size);
     letter-spacing: 0.5;

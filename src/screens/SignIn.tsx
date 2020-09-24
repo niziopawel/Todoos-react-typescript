@@ -89,7 +89,7 @@ const SignIn: React.FC = () => {
           )}
         </FormGroup>
 
-        <Button type="submit" primary>
+        <Button type="submit" variant="primary">
           Log In
         </Button>
 

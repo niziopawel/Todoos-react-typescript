@@ -116,7 +116,7 @@ const SignUp: React.FC = () => {
             </ErrorMessage>
           )}
         </FormGroup>
-        <Button type="submit" primary>
+        <Button type="submit" variant="primary">
           Log in
         </Button>
         {serverError && (
