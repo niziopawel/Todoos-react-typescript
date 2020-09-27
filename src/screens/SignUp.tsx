@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React, { useState, useRef, useEffect } from 'react'
-import Form from '../components/Form'
-import { ErrorMessage, Input } from '../components/lib'
-import { FormGroup } from '../components/lib'
+import Form from '../components/form'
 import Spinner from '../components/Spinner'
 import { validateEmail, validatePassword } from './utils/validation'
 import { useTheme } from '../context/ThemeContext'
@@ -68,10 +66,10 @@ const SignUp: React.FC = () => {
       `}
     >
       <Form onSubmit={handleSubmit}>
-        <h3>Register</h3>
-        <FormGroup>
-          <label htmlFor="email">Email</label>
-          <Input
+        <Form.Title>Sign Up</Form.Title>
+        <Form.Group>
+          <Form.Label htmlFor="email">Email</Form.Label>
+          <Form.Input
             ref={inputRef}
             id="email"
             type="text"
@@ -82,14 +80,14 @@ const SignUp: React.FC = () => {
             }
           />
           {errors.email && (
-            <ErrorMessage color={activeTheme.errColor}>
+            <Form.ErrorMessage color={activeTheme.errColor}>
               {errors.email}
-            </ErrorMessage>
+            </Form.ErrorMessage>
           )}
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="password">Password</label>
-          <Input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="password">Password</Form.Label>
+          <Form.Input
             id="password"
             type="password"
             name="password"
@@ -99,14 +97,14 @@ const SignUp: React.FC = () => {
             }
           />
           {errors.password && (
-            <ErrorMessage color={activeTheme.errColor}>
+            <Form.ErrorMessage color={activeTheme.errColor}>
               {errors.password}
-            </ErrorMessage>
+            </Form.ErrorMessage>
           )}
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <Input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
+          <Form.Input
             id="confirmPassword"
             type="password"
             name="confirmPassword"
@@ -116,18 +114,18 @@ const SignUp: React.FC = () => {
             }
           />
           {errors.confirmPassword && (
-            <ErrorMessage color={activeTheme.errColor}>
+            <Form.ErrorMessage color={activeTheme.errColor}>
               {errors.confirmPassword}
-            </ErrorMessage>
+            </Form.ErrorMessage>
           )}
-        </FormGroup>
+        </Form.Group>
         <Button type="submit" variant="primary">
           Log in
         </Button>
         {serverError && (
-          <ErrorMessage color={activeTheme.errColor}>
+          <Form.ErrorMessage color={activeTheme.errColor}>
             {serverError}
-          </ErrorMessage>
+          </Form.ErrorMessage>
         )}
 
         {isLoading && (

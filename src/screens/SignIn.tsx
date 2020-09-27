@@ -4,10 +4,8 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import Button from '../components/Button'
-import { FormGroup, Input } from '../components/lib'
+import Form from '../components/form'
 import Spinner from '../components/Spinner'
-import Form from '../components/Form'
-import { ErrorMessage } from '../components/lib'
 import { validateEmail, validatePassword } from './utils/validation'
 
 const SignIn: React.FC = () => {
@@ -22,7 +20,6 @@ const SignIn: React.FC = () => {
     password: '',
   })
   const inputRef = useRef<HTMLInputElement>(null)
-
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
@@ -55,52 +52,48 @@ const SignIn: React.FC = () => {
       `}
     >
       <Form onSubmit={handleSubmit}>
-        <h3>Log in</h3>
-        <FormGroup>
-          <label htmlFor="email">Email</label>
-          <Input
+        <Form.Title>Sign In</Form.Title>
+        <Form.Group>
+          <Form.Label htmlFor="email">E-mail</Form.Label>
+          <Form.Input
             ref={inputRef}
-            id="email"
-            type="text"
             name="email"
+            id="email"
             value={formValues.email}
-            onChange={e =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFormValues({ ...formValues, email: e.target.value })
             }
           />
           {errors.email && (
-            <ErrorMessage color={activeTheme.errColor}>
+            <Form.ErrorMessage color={activeTheme.errColor}>
               {errors.email}
-            </ErrorMessage>
+            </Form.ErrorMessage>
           )}
-        </FormGroup>
-
-        <FormGroup>
-          <label htmlFor="password">Password</label>
-          <Input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="password">Password</Form.Label>
+          <Form.Input
             type="password"
             name="password"
             id="password"
             value={formValues.password}
-            onChange={e =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFormValues({ ...formValues, password: e.target.value })
             }
           />
           {errors.password && (
-            <ErrorMessage color={activeTheme.errColor}>
+            <Form.ErrorMessage color={activeTheme.errColor}>
               {errors.password}
-            </ErrorMessage>
+            </Form.ErrorMessage>
           )}
-        </FormGroup>
-
+        </Form.Group>
         <Button type="submit" variant="primary">
-          Log In
+          Sign in
         </Button>
-
         {serverError && (
-          <ErrorMessage color={activeTheme.errColor}>
+          <Form.ErrorMessage color={activeTheme.errColor}>
             {serverError}
-          </ErrorMessage>
+          </Form.ErrorMessage>
         )}
 
         {isLoading && (

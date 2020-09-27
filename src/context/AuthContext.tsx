@@ -47,14 +47,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   })
 
   function login(email: string, password: string) {
-    setAuthState(prevState => ({
+    setAuthState((prevState) => ({
       ...prevState,
       status: 'pending',
       serverError: '',
     }))
 
     loginUserWithEmailAndPassword(email, password)
-      .then(({ user }) => {
+      .then(({user}) => {
         localStorage.setItem('User', JSON.stringify(user))
         setAuthState({
           status: 'success',
@@ -72,7 +72,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function logout() {
-    setAuthState(prevState => ({ ...prevState, status: 'pending' }))
+    setAuthState((prevState: AuthStateType) => ({ ...prevState, status: 'pending' }))
 
     signOut().then(() => {
       setAuthState({ status: 'idle', user: null, serverError: '' })
