@@ -1,12 +1,19 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import styled from '@emotion/styled'
 import React, { useRef, useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
-import Button from '../components/Button'
+import Button from '../components/button'
 import Form from '../components/form'
-import Spinner from '../components/Spinner'
+import Spinner from '../components/spinner'
 import { validateEmail, validatePassword } from './utils/validation'
+
+const SignInContainer = styled('div')`
+  max-width: 400px;
+  margin: 40px auto;
+`
+const SocialBtnsContaienr = styled('div')``
 
 const SignIn: React.FC = () => {
   const { activeTheme } = useTheme()
@@ -45,15 +52,10 @@ const SignIn: React.FC = () => {
   }
 
   return (
-    <div
-      css={css`
-        max-width: 400px;
-        margin: 40px auto;
-      `}
-    >
+    <SignInContainer>
       <Form onSubmit={handleSubmit}>
         <Form.Title>Sign In</Form.Title>
-        <Form.Group>
+        <Form.Group flexDir="column">
           <Form.Label htmlFor="email">E-mail</Form.Label>
           <Form.Input
             ref={inputRef}
@@ -70,7 +72,7 @@ const SignIn: React.FC = () => {
             </Form.ErrorMessage>
           )}
         </Form.Group>
-        <Form.Group>
+        <Form.Group flexDir="column">
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Input
             type="password"
@@ -87,6 +89,7 @@ const SignIn: React.FC = () => {
             </Form.ErrorMessage>
           )}
         </Form.Group>
+
         <Button type="submit" variant="primary">
           Sign in
         </Button>
@@ -105,8 +108,10 @@ const SignIn: React.FC = () => {
             <Spinner spinnerSize={25} color={activeTheme.primaryColor} />
           </div>
         )}
+        <Form.Separator>or login with</Form.Separator>
       </Form>
-    </div>
+      <SocialBtnsContaienr></SocialBtnsContaienr>
+    </SignInContainer>
   )
 }
 

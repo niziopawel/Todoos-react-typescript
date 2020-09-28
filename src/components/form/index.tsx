@@ -6,6 +6,8 @@ import {
   FormGroup,
   ErrorMessage,
   FormLabel,
+  TextSmall,
+  FormSeparator,
 } from './style'
 
 type FormProps = {
@@ -25,8 +27,13 @@ Form.Input = React.forwardRef(
   },
 )
 
-Form.Group = function ({ children }: { children: ReactNode }) {
-  return <FormGroup>{children}</FormGroup>
+type FormGroupProps = {
+  children: ReactNode
+  flexDir: 'column' | 'row'
+}
+
+Form.Group = function (props: FormGroupProps) {
+  return <FormGroup flexDir={props.flexDir}>{props.children}</FormGroup>
 }
 
 Form.Title = function ({ children }: { children: ReactNode }) {
@@ -37,12 +44,26 @@ Form.Label = function (props: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return <FormLabel {...props}>{props.children}</FormLabel>
 }
 
+Form.TextSmall = function ({ children }: { children: ReactNode }) {
+  return <TextSmall>{children}</TextSmall>
+}
+
+Form.Separator = function ({ children }: { children: ReactNode }) {
+  return (
+    <FormSeparator>
+      <span></span>
+      <span>{children}</span>
+      <span></span>
+    </FormSeparator>
+  )
+}
+
 type ErrorProps = {
   children: ReactNode
   color: string
 }
 
-Form.ErrorMessage = function FormErrorMessage({ children, color }: ErrorProps) {
+Form.ErrorMessage = function ({ children, color }: ErrorProps) {
   return <ErrorMessage color={color}>{children}</ErrorMessage>
 }
 

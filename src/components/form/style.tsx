@@ -31,8 +31,7 @@ const FormInput = styled('input')`
 `
 const FormGroup = styled('div')`
   display: flex;
-  flex-direction: column;
-
+  flex-direction: ${({ flexDir }: { flexDir: 'column' | 'row' }) => flexDir};
   & > * {
     margin-bottom: 5px;
   }
@@ -41,8 +40,50 @@ const ErrorMessage = styled('div')`
   color: ${({ color }: { color: string }) => color};
 `
 
+const TextSmall = styled('p')`
+  color: #666463;
+  font-weight: 300;
+  align-self: center;
+`
+
+const FormSeparator = styled('div')`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+
+  & span:first-child {
+    background-color: #ddd;
+    flex-grow: 1;
+    height: 1px;
+  }
+
+  & span:last-child {
+    background-color: #ddd;
+    flex-grow: 1;
+    height: 1px;
+  }
+
+  & span:nth-child(even) {
+    color: #666463;
+    margin-top: -0.2rem;
+    padding: 0 1rem;
+    font-weight: 100;
+  }
+`
+
 const FormTitle = styled('h3')``
 
 const FormLabel = styled('label')``
 
-export { ErrorMessage, FormGroup, FormInput, StyledForm, FormTitle, FormLabel }
+export {
+  ErrorMessage,
+  FormGroup,
+  FormInput,
+  StyledForm,
+  FormTitle,
+  FormLabel,
+  TextSmall,
+  FormSeparator,
+}

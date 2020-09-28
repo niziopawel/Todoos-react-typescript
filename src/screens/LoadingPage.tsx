@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React from 'react'
-import { Logo } from '../components/lib'
-import Spinner from '../components/Spinner'
+import Spinner from '../components/spinner'
 
 const LandingPage: React.FC = () => {
   return (
@@ -19,7 +18,6 @@ const LandingPage: React.FC = () => {
         }
       `}
     >
-      <Logo logoSize={90} />
       <Spinner spinnerSize={50} color="black" />
     </div>
   )

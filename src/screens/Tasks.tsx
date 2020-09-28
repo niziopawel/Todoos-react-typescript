@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'
 import React from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
-import Button from '../components/Button'
+import Button from '../components/button'
 
 const Tasks: React.FC = () => {
   const { logout } = useAuth()

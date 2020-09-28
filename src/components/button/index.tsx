@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
-import { useTheme } from '../context/ThemeContext'
-import { ColorThemeType } from '../lib/theme'
+import { useTheme } from '../../context/ThemeContext'
+import { ColorThemeType } from '../../lib/theme'
 import React, { ReactNode } from 'react'
 
 type ButtonSize = 'big' | 'medium' | 'small'
@@ -101,3 +101,8 @@ const Button: React.FC<ButtonProps> = ({
 }
 
 export default Button
+
+export const IconButton = styled(Button)`
+  padding: 1rem;
+  border-radius: 50%;
+`

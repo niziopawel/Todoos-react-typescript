@@ -1,6 +1,5 @@
 /**@jsx jsx */
 import { css, jsx } from '@emotion/core'
-import styled from '@emotion/styled'
 import React from 'react'
 import { useTheme } from '../context/ThemeContext'
 
@@ -20,10 +19,5 @@ const AppContainer: React.FC = props => {
     </div>
   )
 }
-const FlexContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-`
 
-export { FlexContainer, AppContainer }
+export { AppContainer }

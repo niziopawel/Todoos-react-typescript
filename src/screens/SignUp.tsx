@@ -2,11 +2,11 @@
 import { css, jsx } from '@emotion/core'
 import React, { useState, useRef, useEffect } from 'react'
 import Form from '../components/form'
-import Spinner from '../components/Spinner'
+import Spinner from '../components/spinner'
 import { validateEmail, validatePassword } from './utils/validation'
 import { useTheme } from '../context/ThemeContext'
 import { useAuth } from '../context/AuthContext'
-import Button from '../components/Button'
+import Button from '../components/button'
 
 const SignUp: React.FC = () => {
   const { activeTheme } = useTheme()
@@ -67,7 +67,7 @@ const SignUp: React.FC = () => {
     >
       <Form onSubmit={handleSubmit}>
         <Form.Title>Sign Up</Form.Title>
-        <Form.Group>
+        <Form.Group flexDir="column">
           <Form.Label htmlFor="email">Email</Form.Label>
           <Form.Input
             ref={inputRef}
@@ -85,7 +85,7 @@ const SignUp: React.FC = () => {
             </Form.ErrorMessage>
           )}
         </Form.Group>
-        <Form.Group>
+        <Form.Group flexDir="column">
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Input
             id="password"
@@ -102,7 +102,7 @@ const SignUp: React.FC = () => {
             </Form.ErrorMessage>
           )}
         </Form.Group>
-        <Form.Group>
+        <Form.Group flexDir="column">
           <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
           <Form.Input
             id="confirmPassword"

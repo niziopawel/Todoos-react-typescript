@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 import React from 'react'
-import Button from '../components/Button'
+import Button from '../components/button'
 import { mq } from '../lib/mediaQueries'
 import { navigate } from '@reach/router'
 import { ReactComponent as TodoSVG } from '../svg/todo.svg'
