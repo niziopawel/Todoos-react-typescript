@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
-type asyncStatusType = 'idle' | 'pending' | 'success' | 'error'
+export type asyncStatusType = 'idle' | 'pending' | 'success' | 'error'
 
-function useAsync<T, E = string>(asyncFun: () => Promise<T>) {
+export function useAsync<T, E = string>(asyncFun: () => Promise<T>) {
   const [status, setStatus] = useState<asyncStatusType>('idle')
   const [value, setValue] = useState<T | null>(null)
   const [error, setError] = useState<E | null>(null)

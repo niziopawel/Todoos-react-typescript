@@ -1,9 +1,10 @@
 import React, { createContext, ReactNode, useState } from 'react'
 import { loginUserWithEmailAndPassword, signOut } from '../services/auth'
 import { firebase } from '../config/firebaseConfig'
+import { useAsync, asyncStatusType } from '../hooks/useAsync'
 
 type AuthStateType = {
-  status: 'idle' | 'pending' | 'success' | 'error'
+  status: asyncStatusType
   user: firebase.User | null
   serverError: string
 }
@@ -47,14 +48,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   })
 
   function login(email: string, password: string) {
-    setAuthState((prevState) => ({
+    setAuthState(prevState => ({
       ...prevState,
       status: 'pending',
       serverError: '',
     }))
 
     loginUserWithEmailAndPassword(email, password)
-      .then(({user}) => {
+      .then(({ user }) => {
         localStorage.setItem('User', JSON.stringify(user))
         setAuthState({
           status: 'success',
@@ -72,7 +73,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function logout() {
-    setAuthState((prevState: AuthStateType) => ({ ...prevState, status: 'pending' }))
+    setAuthState((prevState: AuthStateType) => ({
+      ...prevState,
+      status: 'pending',
+    }))
 
     signOut().then(() => {
       setAuthState({ status: 'idle', user: null, serverError: '' })

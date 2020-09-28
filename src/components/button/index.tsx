@@ -4,7 +4,7 @@ import { ColorThemeType } from '../../lib/theme'
 import React, { ReactNode } from 'react'
 
 type ButtonSize = 'big' | 'medium' | 'small'
-type ButtonVariants = 'primary' | 'secondary' | 'tetriary'
+type ButtonVariants = 'primary' | 'secondary'
 type ButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
   type?: 'button' | 'submit'
@@ -101,8 +101,3 @@ const Button: React.FC<ButtonProps> = ({
 }
 
 export default Button
-
-export const IconButton = styled(Button)`
-  padding: 1rem;
-  border-radius: 50%;
-`
