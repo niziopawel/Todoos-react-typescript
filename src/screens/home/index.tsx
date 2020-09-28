@@ -1,32 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import styled from '@emotion/styled'
 import React from 'react'
-import Button from '../components/button'
-import { mq } from '../lib/mediaQueries'
+import Button from '../../components/button'
+import { mq } from '../../lib/mediaQueries'
 import { navigate } from '@reach/router'
-import { ReactComponent as TodoSVG } from '../svg/todo.svg'
-
-const HomeContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const HeadingBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-  & > * {
-    margin-bottom: 20px;
-    ${mq['tablet']} {
-      margin-bottom: 20px;
-    }
-  }
-`
+import { ReactComponent as TodoSVG } from '../../svg/todo.svg'
+import { HomeContainer, HeadingBox } from './styles'
 
 const Home: React.FC = () => {
   return (

@@ -1,9 +1,9 @@
 import React from 'react'
-import SignIn from './screens/SignIn'
-import SignUp from './screens/SignUp'
+import SignIn from './screens/auth/SignIn'
+import SignUp from './screens/auth/SignUp'
 import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'
-import Home from './screens/Home'
+import Home from './screens/home'
 import NotFound from './screens/NotFound'
 
 const UnAuthenticatedApp: React.FC = () => {

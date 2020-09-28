@@ -5,18 +5,14 @@ const StyledForm = styled('form')`
   display: flex;
   flex-flow: column nowrap;
   padding: 15px;
-  border: 0;
   flex-basis: 100%;
-  & > * {
+  & > *:not(:last-child) {
     margin-bottom: 15px;
   }
 
   ${mq['phone']} {
-    border: 1px solid #dbdbdb;
-    border-radius: 4px;
     padding: 20px;
-
-    & > * {
+    & > *:not(:last-child) {
       margin-bottom: 20px;
     }
   }
@@ -28,6 +24,10 @@ const FormInput = styled('input')`
   border-radius: 5px;
   width: 100%;
   padding: 0.5rem 1rem;
+
+  &:hover {
+    cursor: text;
+  }
 `
 const FormGroup = styled('div')`
   display: flex;
@@ -53,19 +53,19 @@ const FormSeparator = styled('div')`
   align-items: center;
   height: 3rem;
 
-  & span:first-child {
+  & span:first-of-type {
     background-color: #ddd;
     flex-grow: 1;
     height: 1px;
   }
 
-  & span:last-child {
+  & span:last-of-type {
     background-color: #ddd;
     flex-grow: 1;
     height: 1px;
   }
 
-  & span:nth-child(even) {
+  & span:nth-of-type(even) {
     color: #666463;
     margin-top: -0.2rem;
     padding: 0 1rem;
@@ -75,7 +75,10 @@ const FormSeparator = styled('div')`
 
 const FormTitle = styled('h3')``
 
-const FormLabel = styled('label')``
+const FormLabel = styled('label')`
+  font-weight: 600;
+  font-size: 0.9rem;
+`
 
 export {
   ErrorMessage,
