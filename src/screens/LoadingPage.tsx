@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core'
 import React from 'react'
 import Spinner from '../components/spinner'
+import { FcTodoList } from 'react-icons/fc'
 
 const LandingPage: React.FC = () => {
   return (
@@ -13,12 +14,13 @@ const LandingPage: React.FC = () => {
         justify-content: center;
         align-items: center;
 
-        div:first-of-type {
-          margin-bottom: 20px;
+        & > * {
+          margin: 5px;
         }
       `}
     >
-      <Spinner spinnerSize={50} color="black" />
+      <FcTodoList fontSize={100} />
+      <Spinner spinnerSize={30} color="#3F51B5" />
     </div>
   )
 }
