@@ -8,15 +8,15 @@ const spin = keyframes({
 
 const turn = keyframes({
   '0%': {
-    strokeDashoffset: 180,
+    strokeDashoffset: 187,
   },
 
   '50%': {
-    strokeDashoffset: 45,
+    strokeDashoffset: 187 / 4,
     transform: 'rotate(135deg)',
   },
   '100%': {
-    strokeDashoffset: 180,
+    strokeDashoffset: 187,
     transform: 'rotate(450deg)',
   },
 })
@@ -42,7 +42,7 @@ const Spinner = ({
       <circle
         css={css`
           stroke: ${color};
-          stroke-dasharray: 180;
+          stroke-dasharray: 187;
           stroke-dashoffset: 0;
           transform-origin: center;
           animation: ${turn} 1.35s ease-in-out infinite;
