@@ -1,16 +1,16 @@
-import React, { createContext, ReactNode, useState } from 'react'
-import { loginUserWithEmailAndPassword, signOut } from '../services/auth'
-import { firebase } from '../config/firebaseConfig'
-import { useAsync, asyncStatusType } from '../hooks/useAsync'
+import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import { firebase, auth } from '../config/firebaseConfig'
 
 type AuthStateType = {
-  status: asyncStatusType
+  status: 'idle' | 'pending' | 'success' | 'error'
   user: firebase.User | null
   serverError: string
 }
 
 type AuthContextType = {
-  login: (email: string, password: string) => void
+  initializing: boolean
+  loginWithEmailAndPassword: (email: string, password: string) => void
+  loginWithGmail: () => void
   logout: () => void
   register: (email: string, password: string) => void
 } & AuthStateType
@@ -19,44 +19,41 @@ const AuthContext = createContext<AuthContextType>({
   status: 'idle',
   user: null,
   serverError: '',
-  login: () => {},
+  initializing: true,
+  loginWithEmailAndPassword: () => {},
+  loginWithGmail: () => {},
   logout: () => {},
   register: () => {},
 })
 
-function getUserFromLocalStorage(): firebase.User | null {
-  let storedUserJson: string | null
-  let userObj: firebase.User | null = null as firebase.User | null
-
-  try {
-    storedUserJson = localStorage.getItem('User')
-    if (storedUserJson) {
-      userObj = JSON.parse(storedUserJson)
-    }
-  } catch (err) {
-    console.log('Error fetching data from local storage', err)
-  }
-
-  return userObj
-}
-
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authState, setAuthState] = useState<AuthStateType>({
     status: 'idle',
-    user: getUserFromLocalStorage(),
+    user: null,
     serverError: '',
   })
+  const [initializing, setInitializing] = useState(true)
 
-  function login(email: string, password: string) {
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(authUser => {
+      if (authUser) {
+        setAuthState(prevState => ({ ...prevState, user: authUser }))
+      }
+      if (initializing) setInitializing(false)
+    })
+    return subscriber
+  }, [initializing])
+
+  function loginWithEmailAndPassword(email: string, password: string) {
     setAuthState(prevState => ({
       ...prevState,
       status: 'pending',
       serverError: '',
     }))
 
-    loginUserWithEmailAndPassword(email, password)
+    auth
+      .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        localStorage.setItem('User', JSON.stringify(user))
         setAuthState({
           status: 'success',
           user: user,
@@ -71,6 +68,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         })
       })
   }
+  function loginWithGmail() {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().useDeviceLanguage()
+
+    firebase.auth().signInWithRedirect(provider)
+  }
 
   function logout() {
     setAuthState((prevState: AuthStateType) => ({
@@ -78,7 +81,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       status: 'pending',
     }))
 
-    signOut().then(() => {
+    auth.signOut().then(() => {
       setAuthState({ status: 'idle', user: null, serverError: '' })
       localStorage.clear()
     })
@@ -87,7 +90,16 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   function register() {}
 
   return (
-    <AuthContext.Provider value={{ ...authState, login, logout, register }}>
+    <AuthContext.Provider
+      value={{
+        ...authState,
+        initializing,
+        loginWithEmailAndPassword,
+        loginWithGmail,
+        logout,
+        register,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
