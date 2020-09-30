@@ -13,7 +13,13 @@ import { Container, RedirectContainer, SocialBtnsContainer } from './styles'
 
 const SignIn: React.FC = () => {
   const { activeTheme } = useTheme()
-  const { login, serverError, isLoading } = useAuth()
+  const {
+    loginWithEmailAndPassword,
+    loginWithGmail,
+    serverError,
+    isLoading,
+  } = useAuth()
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -23,6 +29,7 @@ const SignIn: React.FC = () => {
     password: '',
   })
   const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
@@ -32,7 +39,7 @@ const SignIn: React.FC = () => {
     const isFormValid = validateForm()
 
     if (isFormValid) {
-      login(formValues.email, formValues.password)
+      loginWithEmailAndPassword(formValues.email, formValues.password)
     }
   }
 
@@ -107,10 +114,7 @@ const SignIn: React.FC = () => {
         <Form.Separator>or login with</Form.Separator>
       </Form>
       <SocialBtnsContainer>
-        <SocialMediaBtn
-          media="google"
-          onClick={() => console.log('google click')}
-        />
+        <SocialMediaBtn media="google" onClick={() => loginWithGmail()} />
         <SocialMediaBtn
           media="facebook"
           onClick={() => console.log('facebook click')}

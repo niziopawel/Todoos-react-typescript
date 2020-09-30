@@ -2,12 +2,20 @@ import React from 'react'
 import { useAuth } from './context/AuthContext'
 import AuthenticatedApp from './AuthenticatedApp'
 import UnAuthenticatedApp from './UnAuthenticatedApp'
+import LoadingPage from './screens/LoadingPage'
 
 const App: React.FC = () => {
-  const { user } = useAuth()
+  const { user, initializing } = useAuth()
+
   return (
     <React.Fragment>
-      {user ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
+      {initializing ? (
+        <LoadingPage />
+      ) : user ? (
+        <AuthenticatedApp />
+      ) : (
+        <UnAuthenticatedApp />
+      )}
     </React.Fragment>
   )
 }
