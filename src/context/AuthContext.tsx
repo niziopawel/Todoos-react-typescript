@@ -33,16 +33,29 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     serverError: '',
   })
   const [initializing, setInitializing] = useState(true)
+  const [gettingRedirectResult, setGettingRedirectResult] = useState(false)
+
+  useEffect(() => {
+    if (gettingRedirectResult) {
+      firebase
+        .auth()
+        .getRedirectResult()
+        .then(() => setGettingRedirectResult(false))
+    }
+    setGettingRedirectResult(false)
+  }, [gettingRedirectResult])
 
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(authUser => {
       if (authUser) {
         setAuthState(prevState => ({ ...prevState, user: authUser }))
+      } else {
+        setAuthState(prevState => ({ ...prevState, user: null }))
       }
-      if (initializing) setInitializing(false)
+      setInitializing(false)
     })
     return subscriber
-  }, [initializing])
+  }, [])
 
   function loginWithEmailAndPassword(email: string, password: string) {
     setAuthState(prevState => ({
@@ -68,11 +81,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         })
       })
   }
+
   function loginWithGmail() {
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase.auth().useDeviceLanguage()
 
-    firebase.auth().signInWithRedirect(provider)
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(() => setGettingRedirectResult(true))
   }
 
   function logout() {
@@ -83,7 +100,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     auth.signOut().then(() => {
       setAuthState({ status: 'idle', user: null, serverError: '' })
-      localStorage.clear()
     })
   }
 

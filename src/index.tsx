@@ -8,14 +8,14 @@ import reset from './lib/reset'
 import { ThemeProvider } from './context/ThemeContext'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Global styles={reset} />
     <AuthProvider>
       <ThemeProvider>
         <App />
       </ThemeProvider>
     </AuthProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root'),
 )
 
