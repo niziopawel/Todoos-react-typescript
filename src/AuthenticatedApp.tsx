@@ -1,17 +1,23 @@
-import React from 'react'
-import { Router, Redirect } from '@reach/router'
-import Route from './components/Route'
-import Tasks from './screens/tasks'
-import { AppContainer } from './components/layouts'
+import React, { useState } from 'react'
+import Header from './layouts/Header'
+import Tasks from './components/tasks'
+import AppContainer from './layouts/AppContainer'
+import SideBar from './components/sidebar'
+import Content from './layouts/Content'
 
 function AuthenticatedApp() {
+  const [isSideBarOpen, toggleSideBar] = useState(true)
+
   return (
     <AppContainer>
-      <Router>
-        <Redirect from="/" to="/tasks" noThrow />
-        <Redirect from="/signin" to="/tasks" noThrow />
-        <Route component={Tasks} path="/tasks" />
-      </Router>
+      <Header
+        isSideBarOpen={isSideBarOpen}
+        onSideBarToggle={() => toggleSideBar(!isSideBarOpen)}
+      />
+      <Content>
+        <SideBar />
+        <Tasks />
+      </Content>
     </AppContainer>
   )
 }

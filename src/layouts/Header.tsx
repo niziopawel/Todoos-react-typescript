@@ -13,7 +13,7 @@ type TaskHeaderProps = {
   onSideBarToggle: () => void
 }
 
-const TaskHeader: React.FC<TaskHeaderProps> = ({
+const AppHeader: React.FC<TaskHeaderProps> = ({
   isSideBarOpen,
   onSideBarToggle,
 }) => {
@@ -43,4 +43,4 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
   )
 }
 
-export default TaskHeader
+export default AppHeader

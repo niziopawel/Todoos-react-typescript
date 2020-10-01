@@ -10,7 +10,8 @@ const AppContainer: React.FC = props => {
       css={css`
         height: 100vh;
         width: 100%;
-
+        display: flex;
+        flex-direction: column;
         background: ${activeTheme.bgColor};
         color: ${activeTheme.onBackgroundColor};
       `}
@@ -20,4 +21,4 @@ const AppContainer: React.FC = props => {
   )
 }
 
-export { AppContainer }
+export default AppContainer

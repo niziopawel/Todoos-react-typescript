@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { mq } from '../../lib/mediaQueries'
 import { ThemeType } from '../../lib/theme'
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -14,6 +14,7 @@ const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   border-bottom: 1px solid transparent;
+  z-index: 400;
 
   ${({ theme }: { theme: ThemeType }) => {
     return `
