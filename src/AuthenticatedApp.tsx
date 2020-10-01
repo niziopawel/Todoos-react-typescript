@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'
-import Tasks from './screens/Tasks'
+import Tasks from './screens/tasks'
 import { AppContainer } from './components/layouts'
 
 function AuthenticatedApp() {

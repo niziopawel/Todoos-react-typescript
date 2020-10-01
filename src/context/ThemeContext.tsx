@@ -5,10 +5,10 @@ import React, {
   useState,
   useEffect,
 } from 'react'
-import { ColorThemeType, theme } from '../lib/theme'
+import { ThemeType, theme } from '../lib/theme'
 
 type ThemeContextType = {
-  activeTheme: ColorThemeType
+  activeTheme: ThemeType
   switchTheme: () => void
   resetThemeToDefault: () => void
 }

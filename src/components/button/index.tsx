@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useTheme } from '../../context/ThemeContext'
-import { ColorThemeType } from '../../lib/theme'
+import { ThemeType } from '../../lib/theme'
 import React, { ReactNode } from 'react'
 
 type ButtonSize = 'big' | 'medium' | 'small'
@@ -12,7 +12,7 @@ type ButtonProps = {
   variant: ButtonVariants
   disabled?: boolean
   size?: ButtonSize
-  theme?: ColorThemeType
+  theme?: ThemeType
 }
 
 const StyledButton = styled.button<ButtonProps>`

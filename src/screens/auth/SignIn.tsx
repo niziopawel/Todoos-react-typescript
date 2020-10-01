@@ -8,7 +8,7 @@ import Button from '../../components/button'
 import Form from '../../components/form'
 import Spinner from '../../components/spinner'
 import { validateEmail, validatePassword } from './utils/validation'
-import SocialMediaBtn from '../../components/social'
+import SocialMediaBtn from '../../components/social-btns'
 import { Container, RedirectContainer, SocialBtnsContainer } from './styles'
 
 const SignIn: React.FC = () => {

@@ -8,7 +8,7 @@ import {
   FormLabel,
   TextSmall,
   FormSeparator,
-} from './style'
+} from './styles'
 
 type FormProps = {
   children: React.ReactNode

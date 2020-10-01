@@ -4,7 +4,7 @@ import SignUp from './screens/auth/SignUp'
 import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'
 import Home from './screens/home'
-import NotFound from './screens/NotFound'
+import NotFound from './screens/404-page'
 
 const UnAuthenticatedApp: React.FC = () => {
   return (

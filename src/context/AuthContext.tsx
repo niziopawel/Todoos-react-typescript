@@ -93,14 +93,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function logout() {
-    setAuthState((prevState: AuthStateType) => ({
-      ...prevState,
-      status: 'pending',
-    }))
-
-    auth.signOut().then(() => {
-      setAuthState({ status: 'idle', user: null, serverError: '' })
-    })
+    auth.signOut()
+    localStorage.clear()
   }
 
   function register() {}

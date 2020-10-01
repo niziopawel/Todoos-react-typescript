@@ -39,6 +39,7 @@ const reset = css`
   button {
     border: none;
     text-decoration: none;
+    background: transparent;
   }
 
   ${typography}
