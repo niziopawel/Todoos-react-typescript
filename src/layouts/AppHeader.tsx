@@ -22,9 +22,9 @@ const AppHeader: React.FC<TaskHeaderProps> = ({
       <Header.Group>
         <Header.Button onClick={onSideBarToggle}>
           {isSideBarOpen ? (
-            <AiOutlineMenuUnfold fontSize="20" />
-          ) : (
             <AiOutlineMenuFold fontSize="20" />
+          ) : (
+            <AiOutlineMenuUnfold fontSize="20" />
           )}
         </Header.Button>
         <Header.Button>

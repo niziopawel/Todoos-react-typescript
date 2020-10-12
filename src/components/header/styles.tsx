@@ -18,7 +18,7 @@ const HeaderContainer = styled.header`
 
   ${({ theme }: { theme: ThemeType }) => {
     return `
-      background: ${theme.headerBgColor};
+      background-color: ${theme.headerBgColor};
       box-shadow: ${theme.shadowElevation1};
       color: ${theme.onHeaderColor};
     `
@@ -29,7 +29,7 @@ const HeaderContainer = styled.header`
     padding: 0 42px;
   }
 
-  transition: all 0.2s ease-in;
+  transition: background-color 0.2s ease-in;
 `
 
 const HeaderInner = styled('div')`

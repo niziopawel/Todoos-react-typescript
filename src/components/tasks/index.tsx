@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
 import Button from '../button'
 import { TaskContainer } from './styles'
 
-type TasksProps = {}
+type TasksProps = {
+  isSidebarOpen: boolean
+  isSmallScreen: boolean
+}
 
-const Tasks: React.FC<TasksProps> = () => {
+const Tasks: React.FC<TasksProps> = ({ isSidebarOpen, isSmallScreen }) => {
   const { logout } = useAuth()
   const { switchTheme, resetThemeToDefault } = useTheme()
 
@@ -16,7 +19,9 @@ const Tasks: React.FC<TasksProps> = () => {
   }
 
   return (
-    <TaskContainer>
+    <TaskContainer
+      style={{ marginLeft: isSidebarOpen && !isSmallScreen ? '300px' : '0px' }}
+    >
       <Button variant="primary" type="button" onClick={() => switchTheme()}>
         Switch theme
       </Button>

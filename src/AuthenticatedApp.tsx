@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
-import Header from './layouts/Header'
+import AppHeader from './layouts/AppHeader'
 import Tasks from './components/tasks'
 import AppContainer from './layouts/AppContainer'
-import SideBar from './components/sidebar'
+import AppOverlay from './layouts/AppOverlay'
 import Content from './layouts/Content'
+import { useMedia } from './hooks/useMedia'
+import AppSidebar from './layouts/AppSidebar'
 
 function AuthenticatedApp() {
-  const [isSideBarOpen, toggleSideBar] = useState(true)
+  const [isSidebarOpen, toggleSidebar] = useState(true)
+  const smallScreen = useMedia('(max-width: 576px)')
 
   return (
     <AppContainer>
-      <Header
-        isSideBarOpen={isSideBarOpen}
-        onSideBarToggle={() => toggleSideBar(!isSideBarOpen)}
+      <AppHeader
+        isSideBarOpen={isSidebarOpen}
+        onSideBarToggle={() => toggleSidebar(!isSidebarOpen)}
       />
       <Content>
-        <SideBar />
-        <Tasks />
+        <AppOverlay visible={isSidebarOpen && smallScreen} />
+        <AppSidebar isOpen={isSidebarOpen} />
+        <Tasks isSidebarOpen={isSidebarOpen} isSmallScreen={smallScreen} />
       </Content>
     </AppContainer>
   )

@@ -5,7 +5,8 @@ const TaskContainer = styled('div')`
   flex-direction: column;
   align-items: center;
   padding-top: 80px;
-  position: relative;
+  position: sticky;
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 `
 
 const Content = styled('div')``
