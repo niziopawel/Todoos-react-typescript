@@ -12,7 +12,7 @@ type AuthContextType = {
   loginWithEmailAndPassword: (email: string, password: string) => void
   loginWithGmail: () => void
   logout: () => void
-  register: (email: string, password: string) => void
+  registerWithEmailAndPassword: (email: string, password: string) => void
 } & AuthStateType
 
 const AuthContext = createContext<AuthContextType>({
@@ -23,7 +23,7 @@ const AuthContext = createContext<AuthContextType>({
   loginWithEmailAndPassword: () => {},
   loginWithGmail: () => {},
   logout: () => {},
-  register: () => {},
+  registerWithEmailAndPassword: () => {},
 })
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -61,7 +61,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthState(prevState => ({
       ...prevState,
       status: 'pending',
-      serverError: '',
     }))
 
     auth
@@ -97,7 +96,29 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.clear()
   }
 
-  function register() {}
+  function registerWithEmailAndPassword(email: string, password: string) {
+    setAuthState(prevState => ({
+      ...prevState,
+      status: 'pending',
+    }))
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        setAuthState(prevState => ({
+          ...prevState,
+          status: 'success',
+        }))
+      })
+
+      .catch((err: firebase.auth.Error) => {
+        setAuthState({
+          status: 'error',
+          user: null,
+          serverError: err.message,
+        })
+      })
+  }
 
   return (
     <AuthContext.Provider
@@ -107,7 +128,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         loginWithEmailAndPassword,
         loginWithGmail,
         logout,
-        register,
+        registerWithEmailAndPassword,
       }}
     >
       {children}

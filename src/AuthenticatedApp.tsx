@@ -4,23 +4,25 @@ import Tasks from './components/tasks'
 import AppContainer from './layouts/AppContainer'
 import AppOverlay from './layouts/AppOverlay'
 import Content from './layouts/Content'
-import { useMedia } from './hooks/useMedia'
 import AppSidebar from './layouts/AppSidebar'
+import { useMedia } from './hooks/useMedia'
+import { useTheme } from './context/ThemeContext'
 
 function AuthenticatedApp() {
+  const { activeTheme } = useTheme()
   const [isSidebarOpen, toggleSidebar] = useState(true)
-  const smallScreen = useMedia('(max-width: 576px)')
+  const isMobile = useMedia('(max-width: 576px)')
 
   return (
-    <AppContainer>
+    <AppContainer theme={activeTheme}>
       <AppHeader
         isSideBarOpen={isSidebarOpen}
         onSideBarToggle={() => toggleSidebar(!isSidebarOpen)}
       />
       <Content>
-        <AppOverlay visible={isSidebarOpen && smallScreen} />
+        <AppOverlay visible={isSidebarOpen && isMobile} />
         <AppSidebar isOpen={isSidebarOpen} />
-        <Tasks isSidebarOpen={isSidebarOpen} isSmallScreen={smallScreen} />
+        <Tasks isSidebarOpen={isSidebarOpen} isMobile={isMobile} />
       </Content>
     </AppContainer>
   )

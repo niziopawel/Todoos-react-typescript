@@ -6,10 +6,10 @@ import { TaskContainer } from './styles'
 
 type TasksProps = {
   isSidebarOpen: boolean
-  isSmallScreen: boolean
+  isMobile: boolean
 }
 
-const Tasks: React.FC<TasksProps> = ({ isSidebarOpen, isSmallScreen }) => {
+const Tasks: React.FC<TasksProps> = ({ isSidebarOpen, isMobile }) => {
   const { logout } = useAuth()
   const { switchTheme, resetThemeToDefault } = useTheme()
 
@@ -20,7 +20,7 @@ const Tasks: React.FC<TasksProps> = ({ isSidebarOpen, isSmallScreen }) => {
 
   return (
     <TaskContainer
-      style={{ marginLeft: isSidebarOpen && !isSmallScreen ? '300px' : '0px' }}
+      style={{ marginLeft: isSidebarOpen && !isMobile ? '300px' : '0px' }}
     >
       <Button variant="primary" type="button" onClick={() => switchTheme()}>
         Switch theme

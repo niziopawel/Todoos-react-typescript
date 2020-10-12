@@ -11,7 +11,7 @@ import { Container } from './styles'
 
 const SignUp: React.FC = () => {
   const { activeTheme } = useTheme()
-  const { register, serverError, isLoading } = useAuth()
+  const { registerWithEmailAndPassword, serverError, isLoading } = useAuth()
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -35,7 +35,7 @@ const SignUp: React.FC = () => {
 
     if (isFormValid) {
       console.log('register')
-      register(formValues.email, formValues.password)
+      registerWithEmailAndPassword(formValues.email, formValues.password)
     }
   }
   function validateForm() {
