@@ -3,7 +3,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCqqTdnw7XEkDmpKgseeuaMGiZ_AnqeNGA',
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: 'todo-58e66.firebaseapp.com',
   databaseURL: 'https://todo-58e66.firebaseio.com',
   projectId: 'todo-58e66',
