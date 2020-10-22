@@ -1,17 +1,24 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React, { useState, useRef, useEffect } from 'react'
+import { Link } from '@reach/router'
 import Form from '../../components/form'
 import Spinner from '../../components/spinner'
 import { validateEmail, validatePassword } from './utils/validation'
 import { useTheme } from '../../context/ThemeContext'
 import { useAuth } from '../../context/AuthContext'
 import Button from '../../components/button'
-import { Container } from './styles'
+import SocialMediaBtn from '../../components/social-btns'
+import { Container, RedirectContainer, SocialBtnsContainer } from './styles'
 
 const SignUp: React.FC = () => {
   const { activeTheme } = useTheme()
-  const { registerWithEmailAndPassword, serverError, isLoading } = useAuth()
+  const {
+    registerWithEmailAndPassword,
+    serverError,
+    isLoading,
+    loginWithGmail,
+  } = useAuth()
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -133,7 +140,20 @@ const SignUp: React.FC = () => {
             <Spinner spinnerSize={25} color={activeTheme.primaryColor} />
           </div>
         )}
+        <Form.Separator>or sign in with</Form.Separator>
       </Form>
+      <SocialBtnsContainer>
+        <SocialMediaBtn media="google" onClick={() => loginWithGmail()} />
+        <SocialMediaBtn
+          media="facebook"
+          onClick={() => console.log('facebook click')}
+        />
+      </SocialBtnsContainer>
+      <RedirectContainer>
+        <h6>
+          Have an account? <Link to="/signin">Sign In</Link>
+        </h6>
+      </RedirectContainer>
     </Container>
   )
 }
