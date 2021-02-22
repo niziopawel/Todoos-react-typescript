@@ -41,7 +41,6 @@ const SignUp: React.FC = () => {
     const isFormValid = validateForm()
 
     if (isFormValid) {
-      console.log('register')
       registerWithEmailAndPassword(formValues.email, formValues.password)
     }
   }
@@ -61,9 +60,7 @@ const SignUp: React.FC = () => {
       confirmPassword: confirmPasswordErr,
     })
 
-    if (!emailErr && !passwordErr && !confirmPasswordErr) {
-      return true
-    } else return false
+    return (!emailErr && !passwordErr && !confirmPasswordErr)
   }
 
   return (

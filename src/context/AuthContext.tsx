@@ -1,37 +1,41 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { firebase, auth } from '../config/firebaseConfig'
-
-type AuthStateType = {
-  status: 'idle' | 'pending' | 'success' | 'error'
-  user: firebase.User | null
-  serverError: string
-}
+import useAsync from '../hooks/useAsync'
 
 type AuthContextType = {
+  user: firebase.User | null
+  serverError: string | null
+  isLoading: boolean
   initializing: boolean
   loginWithEmailAndPassword: (email: string, password: string) => void
   loginWithGmail: () => void
   logout: () => void
   registerWithEmailAndPassword: (email: string, password: string) => void
-} & AuthStateType
+}
 
-const AuthContext = createContext<AuthContextType>({
-  status: 'idle',
+const initialState = {
   user: null,
   serverError: '',
+  isLoading: false,
   initializing: true,
   loginWithEmailAndPassword: () => {},
   loginWithGmail: () => {},
   logout: () => {},
   registerWithEmailAndPassword: () => {},
-})
+}
+
+const AuthContext = createContext<AuthContextType>(initialState)
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [authState, setAuthState] = useState<AuthStateType>({
-    status: 'idle',
-    user: null,
-    serverError: '',
-  })
+  const {
+    isLoading,
+    data: user,
+    error: serverError,
+    setData: setUser,
+    setError,
+    // run
+  } = useAsync<firebase.User | null, string | null>()
+  
   const [initializing, setInitializing] = useState(true)
   const [gettingRedirectResult, setGettingRedirectResult] = useState(false)
 
@@ -48,37 +52,25 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(authUser => {
       if (authUser) {
-        setAuthState(prevState => ({ ...prevState, user: authUser }))
+        setUser(authUser) 
       } else {
-        setAuthState(prevState => ({ ...prevState, user: null }))
+        setUser(null)
       }
       setInitializing(false)
     })
     return subscriber
-  }, [])
-
+  }, [setUser])
+  
   function loginWithEmailAndPassword(email: string, password: string) {
-    setAuthState(prevState => ({
-      ...prevState,
-      status: 'pending',
-    }))
-
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(({ user }) => {
-        setAuthState({
-          status: 'success',
-          user: user,
-          serverError: '',
-        })
-      })
-      .catch((err: firebase.auth.Error) => {
-        setAuthState({
-          status: 'error',
-          user: null,
-          serverError: err.message,
-        })
-      })
+    auth.signInWithEmailAndPassword(email, password)
+      .then(({user}) => setUser(user))
+      .catch((err: firebase.auth.Error) => setError(err.message))
+  }
+  
+  function registerWithEmailAndPassword(email: string, password: string) {
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(({user}) => setUser(user))
+      .catch((err: firebase.auth.Error) => setError(err.message))
   }
 
   function loginWithGmail() {
@@ -96,35 +88,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.clear()
   }
 
-  function registerWithEmailAndPassword(email: string, password: string) {
-    setAuthState(prevState => ({
-      ...prevState,
-      status: 'pending',
-    }))
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(({ user }) => {
-        setAuthState(prevState => ({
-          ...prevState,
-          status: 'success',
-        }))
-      })
-
-      .catch((err: firebase.auth.Error) => {
-        setAuthState({
-          status: 'error',
-          user: null,
-          serverError: err.message,
-        })
-      })
-  }
-
   return (
     <AuthContext.Provider
       value={{
-        ...authState,
-        initializing,
+        user,
+        serverError,
+        isLoading,
+        initializing, 
         loginWithEmailAndPassword,
         loginWithGmail,
         logout,
@@ -138,15 +108,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export function useAuth() {
   const state = React.useContext(AuthContext)
-  const isLoading = state.status === 'pending'
-  const isError = state.status === 'error'
-  const isSuccess = state.status === 'success'
 
   return {
     ...state,
-    isLoading,
-    isError,
-    isSuccess,
   }
 }
 

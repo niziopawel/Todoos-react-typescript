@@ -7,7 +7,6 @@ import Home from './screens/home'
 import NotFound from './screens/404-page'
 
 const UnAuthenticatedApp: React.FC = () => {
-  console.log(process.env.REACT_APP_FIREBASE_KEY)
   return (
     <Router>
       <Route component={Home} path="/" />

@@ -1,18 +1,24 @@
 import { useState, useCallback } from 'react'
+type StatusType = 'idle' | 'pending' | 'success' | 'error'
 
-type asyncStateType<TData = unknown, TError = unknown> = {
-  status: 'idle' | 'pending' | 'success' | 'error'
+export type AsyncStateType<TData = unknown, TError = unknown> = {
+  status: StatusType 
   data: TData | null
   error: TError | null
 }
 
 function useAsync<TData, TError>(): {
   isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  data: TData | null
+  error: TError | null
+  status: StatusType
   setData: (data: TData) => void
   setError: (error: TError) => void
   run: (fn: Promise<TData>) => Promise<void>
 } {
-  const [asyncState, setAsyncState] = useState<asyncStateType<TData, TError>>({
+  const [asyncState, setAsyncState] = useState<AsyncStateType<TData, TError>>({
     status: 'idle',
     data: null,
     error: null,
@@ -47,6 +53,11 @@ function useAsync<TData, TError>(): {
 
   return {
     isLoading: asyncState.status === 'pending',
+    isSuccess: asyncState.status === 'success',
+    isError: asyncState.status === 'error',
+    data: asyncState.data,
+    error: asyncState.error,
+    status: asyncState.status,
     setData,
     setError,
     run,

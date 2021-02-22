@@ -49,9 +49,7 @@ const SignIn: React.FC = () => {
 
     setErrors({ email: emailErr, password: passwordErr })
 
-    if (emailErr === '' && passwordErr === '') {
-      return true
-    } else return false
+    return (emailErr === '' && passwordErr === '') 
   }
 
   return (
