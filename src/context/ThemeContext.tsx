@@ -24,14 +24,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const storedTheme = window.localStorage.getItem('theme')
-    if (
-      (storedTheme !== null && storedTheme === 'darkTheme') ||
-      storedTheme === 'defaultTheme'
-    ) {
-      setActiveTheme(theme[storedTheme])
-    } else {
-      setActiveTheme(theme.defaultTheme)
-    }
+      storedTheme !== null ? setActiveTheme(theme[storedTheme]) : setActiveTheme(theme.defaultTheme)
   }, [])
 
   function switchTheme() {

@@ -24,10 +24,12 @@ const SignIn: React.FC = () => {
     email: '',
     password: '',
   })
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
   })
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -64,7 +66,7 @@ const SignIn: React.FC = () => {
             id="email"
             value={formValues.email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFormValues({ ...formValues, email: e.target.value })
+              setFormValues({ ...formValues, email: e.currentTarget.value })
             }
           />
           {errors.email && (
@@ -81,7 +83,7 @@ const SignIn: React.FC = () => {
             id="password"
             value={formValues.password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFormValues({ ...formValues, password: e.target.value })
+              setFormValues({ ...formValues, password: e.currentTarget.value })
             }
           />
           {errors.password && (

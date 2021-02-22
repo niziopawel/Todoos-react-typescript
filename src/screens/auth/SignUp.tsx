@@ -19,16 +19,19 @@ const SignUp: React.FC = () => {
     isLoading,
     loginWithGmail,
   } = useAuth()
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
     confirmPassword: '',
   })
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
     confirmPassword: '',
   })
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -76,7 +79,7 @@ const SignUp: React.FC = () => {
             name="email"
             value={formValues.email}
             onChange={e =>
-              setFormValues({ ...formValues, email: e.target.value })
+              setFormValues({ ...formValues, email: e.currentTarget.value })
             }
           />
           {errors.email && (
@@ -93,7 +96,7 @@ const SignUp: React.FC = () => {
             name="password"
             value={formValues.password}
             onChange={e =>
-              setFormValues({ ...formValues, password: e.target.value })
+              setFormValues({ ...formValues, password: e.currentTarget.value })
             }
           />
           {errors.password && (
@@ -110,7 +113,7 @@ const SignUp: React.FC = () => {
             name="confirmPassword"
             value={formValues.confirmPassword}
             onChange={e =>
-              setFormValues({ ...formValues, confirmPassword: e.target.value })
+              setFormValues({ ...formValues, confirmPassword: e.currentTarget.value })
             }
           />
           {errors.confirmPassword && (
