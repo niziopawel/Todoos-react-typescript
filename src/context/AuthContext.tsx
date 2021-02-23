@@ -35,7 +35,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError,
     // run
   } = useAsync<firebase.User | null, string | null>()
-  
+
   const [initializing, setInitializing] = useState(true)
   const [gettingRedirectResult, setGettingRedirectResult] = useState(false)
 
@@ -52,7 +52,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(authUser => {
       if (authUser) {
-        setUser(authUser) 
+        setUser(authUser)
       } else {
         setUser(null)
       }
@@ -60,16 +60,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     })
     return subscriber
   }, [setUser])
-  
+
   function loginWithEmailAndPassword(email: string, password: string) {
-    auth.signInWithEmailAndPassword(email, password)
-      .then(({user}) => setUser(user))
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(({ user }) => setUser(user))
       .catch((err: firebase.auth.Error) => setError(err.message))
   }
-  
+
   function registerWithEmailAndPassword(email: string, password: string) {
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(({user}) => setUser(user))
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(({ user }) => setUser(user))
       .catch((err: firebase.auth.Error) => setError(err.message))
   }
 
@@ -94,7 +96,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         serverError,
         isLoading,
-        initializing, 
+        initializing,
         loginWithEmailAndPassword,
         loginWithGmail,
         logout,
@@ -107,11 +109,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export function useAuth() {
-  const state = React.useContext(AuthContext)
+  const context = React.useContext(AuthContext)
 
-  return {
-    ...state,
+  if (context === undefined) {
+    throw new Error('useAuth must be used within a AuthProvider')
   }
+  return context
 }
 
 export default AuthProvider

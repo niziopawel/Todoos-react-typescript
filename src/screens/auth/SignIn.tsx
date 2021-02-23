@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
 
     setErrors({ email: emailErr, password: passwordErr })
 
-    return (emailErr === '' && passwordErr === '') 
+    return emailErr === '' && passwordErr === ''
   }
 
   return (

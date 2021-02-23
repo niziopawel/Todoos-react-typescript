@@ -63,7 +63,7 @@ const SignUp: React.FC = () => {
       confirmPassword: confirmPasswordErr,
     })
 
-    return (!emailErr && !passwordErr && !confirmPasswordErr)
+    return !emailErr && !passwordErr && !confirmPasswordErr
   }
 
   return (
@@ -113,7 +113,10 @@ const SignUp: React.FC = () => {
             name="confirmPassword"
             value={formValues.confirmPassword}
             onChange={e =>
-              setFormValues({ ...formValues, confirmPassword: e.currentTarget.value })
+              setFormValues({
+                ...formValues,
+                confirmPassword: e.currentTarget.value,
+              })
             }
           />
           {errors.confirmPassword && (

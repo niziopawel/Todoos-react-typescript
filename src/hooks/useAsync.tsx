@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 type StatusType = 'idle' | 'pending' | 'success' | 'error'
 
 export type AsyncStateType<TData = unknown, TError = unknown> = {
-  status: StatusType 
+  status: StatusType
   data: TData | null
   error: TError | null
 }

@@ -12,7 +12,6 @@ function AuthenticatedApp() {
   const { activeTheme } = useTheme()
   const [isSidebarOpen, toggleSidebar] = useState(true)
   const isMobile = useMedia('(max-width: 576px)')
-
   return (
     <AppContainer theme={activeTheme}>
       <AppHeader
