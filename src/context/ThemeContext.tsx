@@ -1,22 +1,14 @@
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useEffect,
-} from 'react'
+import React, { createContext, useContext, ReactNode, useState } from 'react'
 import { ThemeType, theme } from '../lib/theme'
 
 type ThemeContextType = {
   activeTheme: ThemeType
   switchTheme: () => void
-  resetThemeToDefault: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType>({
   activeTheme: theme.defaultTheme,
   switchTheme: () => {},
-  resetThemeToDefault: () => {},
 })
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
@@ -39,23 +31,17 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       window.localStorage.setItem('theme', 'defaultTheme')
     }
   }
-  function resetThemeToDefault() {
-    setActiveTheme(theme.defaultTheme)
-  }
-
   return (
-    <ThemeContext.Provider
-      value={{ activeTheme, switchTheme, resetThemeToDefault }}
-    >
+    <ThemeContext.Provider value={{ activeTheme, switchTheme }}>
       {children}
     </ThemeContext.Provider>
   )
 }
 
-function useTheme(): ThemeContextType {
+export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext)
 
   return context
 }
 
-export { ThemeProvider, useTheme }
+export default ThemeProvider

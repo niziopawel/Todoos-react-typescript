@@ -5,15 +5,12 @@ import AuthProvider from './context/AuthContext'
 import * as serviceWorker from './serviceWorker'
 import { Global } from '@emotion/core'
 import reset from './lib/reset'
-import { ThemeProvider } from './context/ThemeContext'
 
 ReactDOM.render(
   <React.Fragment>
     <Global styles={reset} />
     <AuthProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </AuthProvider>
   </React.Fragment>,
   document.getElementById('root'),

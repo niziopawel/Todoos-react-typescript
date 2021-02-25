@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AppHeader from './layouts/AppHeader'
 import Tasks from './components/tasks'
 import AppContainer from './layouts/AppContainer'
@@ -7,18 +7,15 @@ import Content from './layouts/Content'
 import AppSidebar from './layouts/AppSidebar'
 import { useMedia } from './hooks/useMedia'
 import { useTheme } from './context/ThemeContext'
-import { Router, Redirect } from '@reach/router'
+import { useSidebar } from './context/SidebarContex'
 
 function AuthenticatedApp() {
   const { activeTheme } = useTheme()
-  const [isSidebarOpen, toggleSidebar] = useState(true)
+  const { isSidebarOpen } = useSidebar()
   const isMobile = useMedia('(max-width: 576px)')
   return (
     <>
-      <AppHeader
-        isSideBarOpen={isSidebarOpen}
-        onSideBarToggle={() => toggleSidebar(!isSidebarOpen)}
-      />
+      <AppHeader />
       <AppContainer theme={activeTheme}>
         <Content>
           <AppOverlay visible={isSidebarOpen && isMobile} />

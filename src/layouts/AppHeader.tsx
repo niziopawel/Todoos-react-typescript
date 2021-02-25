@@ -7,21 +7,15 @@ import {
   AiOutlineSetting,
 } from 'react-icons/ai'
 import { BiPlus } from 'react-icons/bi'
+import { useSidebar } from '../context/SidebarContex'
 
-type TaskHeaderProps = {
-  isSideBarOpen: boolean
-  onSideBarToggle: () => void
-}
-
-const AppHeader: React.FC<TaskHeaderProps> = ({
-  isSideBarOpen,
-  onSideBarToggle,
-}) => {
+const AppHeader: React.FC = () => {
+  const { isSidebarOpen, toggleSidebar } = useSidebar()
   return (
     <Header>
       <Header.Group>
-        <Header.Button onClick={onSideBarToggle}>
-          {isSideBarOpen ? (
+        <Header.Button onClick={toggleSidebar}>
+          {isSidebarOpen ? (
             <AiOutlineMenuFold fontSize="20" />
           ) : (
             <AiOutlineMenuUnfold fontSize="20" />

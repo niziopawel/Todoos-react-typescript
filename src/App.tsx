@@ -1,9 +1,9 @@
 import React from 'react'
 import { useAuth } from './context/AuthContext'
-import ProjectsProvider from './context/ProjectsContext'
 import AuthenticatedApp from './AuthenticatedApp'
 import UnAuthenticatedApp from './UnAuthenticatedApp'
 import LoadingPage from './screens/loading-page'
+import MainAppProviders from './context/MainAppProviders'
 
 const App: React.FC = () => {
   const { user, initializing } = useAuth()
@@ -13,9 +13,9 @@ const App: React.FC = () => {
       {initializing ? (
         <LoadingPage />
       ) : user ? (
-        <ProjectsProvider>
+        <MainAppProviders>
           <AuthenticatedApp />
-        </ProjectsProvider>
+        </MainAppProviders>
       ) : (
         <UnAuthenticatedApp />
       )}

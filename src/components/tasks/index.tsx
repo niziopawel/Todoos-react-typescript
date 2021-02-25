@@ -11,11 +11,10 @@ type TasksProps = {
 
 const Tasks: React.FC<TasksProps> = ({ isSidebarOpen, isMobile }) => {
   const { logout } = useAuth()
-  const { switchTheme, resetThemeToDefault } = useTheme()
+  const { switchTheme } = useTheme()
 
   function handleClick() {
     logout()
-    resetThemeToDefault()
   }
 
   return (
