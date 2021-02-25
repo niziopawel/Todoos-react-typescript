@@ -20,12 +20,15 @@ const ThemeContext = createContext<ThemeContextType>({
 })
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [activeTheme, setActiveTheme] = useState(theme.defaultTheme)
+  const [activeTheme, setActiveTheme] = useState<ThemeType>(() => {
+    const isVal = window.localStorage.getItem('theme')
 
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem('theme')
-      storedTheme !== null ? setActiveTheme(theme[storedTheme]) : setActiveTheme(theme.defaultTheme)
-  }, [])
+    if (isVal) {
+      return isVal === 'darkTheme' ? theme.darkTheme : theme.defaultTheme
+    } else {
+      return theme.defaultTheme
+    }
+  })
 
   function switchTheme() {
     if (activeTheme === theme.defaultTheme) {

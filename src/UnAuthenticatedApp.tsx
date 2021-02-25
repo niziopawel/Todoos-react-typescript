@@ -5,12 +5,8 @@ import { Router, Redirect } from '@reach/router'
 import Route from './components/Route'
 import Home from './screens/home'
 import NotFound from './screens/404-page'
-import { useTheme } from './context/ThemeContext'
 
 const UnAuthenticatedApp: React.FC = () => {
-  const { resetThemeToDefault } = useTheme()
-  resetThemeToDefault()
-
   return (
     <Router>
       <Route component={Home} path="/" />
