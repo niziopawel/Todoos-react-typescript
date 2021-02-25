@@ -74,7 +74,14 @@ const ProjectsProvider = ({ children }: { children: React.ReactNode }) => {
   }, [user, setProjects, setError])
 
   useEffect(() => {
-    fetchProjects()
+    let isMounted = true
+    if (isMounted) {
+      fetchProjects()
+    }
+
+    return () => {
+      isMounted = false
+    }
   }, [fetchProjects])
 
   return (
