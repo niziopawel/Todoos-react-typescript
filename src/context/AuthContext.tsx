@@ -1,3 +1,4 @@
+import { navigate } from '@reach/router'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { firebase, auth } from '../config/firebaseConfig'
 import useAsync from '../hooks/useAsync'
@@ -88,6 +89,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   function logout() {
     auth.signOut()
     localStorage.clear()
+    navigate('/')
   }
 
   return (

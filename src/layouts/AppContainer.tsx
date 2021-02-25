@@ -1,16 +1,24 @@
-import styled from '@emotion/styled'
-import { ThemeType } from '../lib/theme'
+/** @jsx jsx */
+import React from 'react'
+import { css, jsx } from '@emotion/core'
+import { useTheme } from '../context/ThemeContext'
 
-const AppContainer = styled('div')`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  ${({ theme }: { theme: ThemeType }) => `
-    background: ${theme.bgColor};
-    color: ${theme.onBackgroundColor};
-  `}
-`
+const AppContainer: React.FC = ({ children }) => {
+  const { activeTheme } = useTheme()
+  return (
+    <div
+      css={css`
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background: ${activeTheme.bgColor};
+        color: ${activeTheme.onBackgroundColor};
+      `}
+    >
+      {children}
+    </div>
+  )
+}
 
 export default AppContainer
