@@ -7,7 +7,6 @@ import MainAppProviders from './context/MainAppProviders'
 
 const App: React.FC = () => {
   const { user, initializing } = useAuth()
-
   return (
     <React.Fragment>
       {initializing ? (
