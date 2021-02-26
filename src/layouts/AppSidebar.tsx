@@ -1,12 +1,11 @@
 import React from 'react'
 import Sidebar from '../components/sidebar'
+import { useSidebar } from '../context/SidebarContex'
 
-type AppSidebarProps = {
-  isOpen: boolean
-}
+const AppSidebar: React.FC = () => {
+  const { isSidebarOpen } = useSidebar()
 
-const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen }) => {
-  return <Sidebar isOpen={isOpen}></Sidebar>
+  return <Sidebar isOpen={isSidebarOpen}></Sidebar>
 }
 
 export default AppSidebar
