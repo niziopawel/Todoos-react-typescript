@@ -6,8 +6,8 @@ import useAsync from '../hooks/useAsync'
 type Project = {
   name: string
   userId: string
-  archived: boolean
-  created_at: Date
+  archived?: boolean
+  created_at?: Date
 }
 
 const projectConverter = {

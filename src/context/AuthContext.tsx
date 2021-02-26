@@ -1,6 +1,6 @@
 import { navigate } from '@reach/router'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
-import { firebase, auth } from '../config/firebaseConfig'
+import { firebase, auth, db } from '../config/firebaseConfig'
 import useAsync from '../hooks/useAsync'
 
 type AuthContextType = {
@@ -38,29 +38,34 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   } = useAsync<firebase.User | null, string | null>()
 
   const [initializing, setInitializing] = useState(true)
-  const [gettingRedirectResult, setGettingRedirectResult] = useState(false)
 
-  useEffect(() => {
-    if (gettingRedirectResult) {
-      firebase
-        .auth()
-        .getRedirectResult()
-        .then(() => setGettingRedirectResult(false))
-    }
-    setGettingRedirectResult(false)
-  }, [gettingRedirectResult])
+  useEffect(function handleRedirectingGmailSignIn() {
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then(result => {
+        const isNewUser = result.additionalUserInfo?.isNewUser
+        if (result.user && isNewUser) {
+          const userId = result.user.uid
+          createInboxProjectForNewUser(userId)
+        }
+      })
+  }, [])
 
-  useEffect(() => {
-    const subscriber = firebase.auth().onAuthStateChanged(authUser => {
-      if (authUser) {
-        setUser(authUser)
-      } else {
-        setUser(null)
-      }
-      setInitializing(false)
-    })
-    return subscriber
-  }, [setUser])
+  useEffect(
+    function handleAuthStateChange() {
+      const subscriber = firebase.auth().onAuthStateChanged(authUser => {
+        if (authUser) {
+          setUser(authUser)
+        } else {
+          setUser(null)
+        }
+        setInitializing(false)
+      })
+      return subscriber
+    },
+    [setUser],
+  )
 
   function loginWithEmailAndPassword(email: string, password: string) {
     auth
@@ -72,7 +77,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   function registerWithEmailAndPassword(email: string, password: string) {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(({ user }) => setUser(user))
+      .then(({ user }) => {
+        setUser(user)
+        if (user) {
+          createInboxProjectForNewUser(user.uid)
+        }
+      })
       .catch((err: firebase.auth.Error) => setError(err.message))
   }
 
@@ -80,10 +90,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase.auth().useDeviceLanguage()
 
-    firebase
-      .auth()
-      .signInWithRedirect(provider)
-      .then(() => setGettingRedirectResult(true))
+    firebase.auth().signInWithRedirect(provider)
+  }
+
+  function createInboxProjectForNewUser(uid: string) {
+    db.collection('projects').doc().set({
+      name: 'INBOX',
+      userId: uid,
+    })
   }
 
   function logout() {

@@ -10,7 +10,7 @@ const UnAuthenticatedApp: React.FC = () => {
   return (
     <Router>
       <Route component={Home} path="/" />
-      <Redirect from="/tasks" to="/" noThrow />
+      <Redirect from="/app" to="/" noThrow />
       <Route component={SignIn} path="/signin" />
       <Route component={SignUp} path="/signup" />
       <Route component={NotFound} default />
