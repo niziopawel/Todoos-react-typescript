@@ -1,14 +1,15 @@
 import React from 'react'
 import { useAuth } from './context/AuthContext'
-import AuthenticatedApp from './AuthenticatedApp'
 import UnAuthenticatedApp from './UnAuthenticatedApp'
 import LoadingPage from './screens/loading-page'
 import MainAppProviders from './context/MainAppProviders'
 
+const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'))
+
 const App: React.FC = () => {
   const { user, initializing } = useAuth()
   return (
-    <React.Fragment>
+    <React.Suspense fallback={<LoadingPage />}>
       {initializing ? (
         <LoadingPage />
       ) : user ? (
@@ -18,7 +19,7 @@ const App: React.FC = () => {
       ) : (
         <UnAuthenticatedApp />
       )}
-    </React.Fragment>
+    </React.Suspense>
   )
 }
 
