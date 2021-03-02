@@ -1,11 +1,10 @@
 import { navigate } from '@reach/router'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { firebase, auth, db } from '../config/firebaseConfig'
-import useAsync from '../hooks/useAsync'
 
 type AuthContextType = {
   user: firebase.User | null
-  serverError: string | null
+  error: string | null
   isLoading: boolean
   initializing: boolean
   loginWithEmailAndPassword: (email: string, password: string) => void
@@ -16,7 +15,7 @@ type AuthContextType = {
 
 const initialState = {
   user: null,
-  serverError: '',
+  error: '',
   isLoading: false,
   initializing: true,
   loginWithEmailAndPassword: () => {},
@@ -28,18 +27,12 @@ const initialState = {
 const AuthContext = createContext<AuthContextType>(initialState)
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const {
-    isLoading,
-    data: user,
-    error: serverError,
-    setData: setUser,
-    setError,
-    // run
-  } = useAsync<firebase.User | null, string | null>()
-
+  const [user, setUser] = useState<firebase.User | null>(null)
+  const [error, setError] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(false)
   const [initializing, setInitializing] = useState(true)
 
-  useEffect(function handleRedirectingGmailSignIn() {
+  useEffect(function handleRedirectingAfterGmailSignIn() {
     firebase
       .auth()
       .getRedirectResult()
@@ -68,13 +61,16 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   )
 
   function loginWithEmailAndPassword(email: string, password: string) {
+    setIsLoading(true)
     auth
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => setUser(user))
       .catch((err: firebase.auth.Error) => setError(err.message))
+      .finally(() => setIsLoading(false))
   }
 
   function registerWithEmailAndPassword(email: string, password: string) {
+    setIsLoading(true)
     auth
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
@@ -84,6 +80,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       })
       .catch((err: firebase.auth.Error) => setError(err.message))
+      .finally(() => setIsLoading(false))
   }
 
   function loginWithGmail() {
@@ -102,7 +99,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   function logout() {
     auth.signOut()
-    localStorage.clear()
     navigate('/')
   }
 
@@ -110,7 +106,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         user,
-        serverError,
+        error,
         isLoading,
         initializing,
         loginWithEmailAndPassword,

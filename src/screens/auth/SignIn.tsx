@@ -16,7 +16,7 @@ const SignIn: React.FC = () => {
   const {
     loginWithEmailAndPassword,
     loginWithGmail,
-    serverError,
+    error: serverError,
     isLoading,
   } = useAuth()
 

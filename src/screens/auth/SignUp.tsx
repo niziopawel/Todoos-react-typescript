@@ -15,7 +15,7 @@ const SignUp: React.FC = () => {
   const { activeTheme } = useTheme()
   const {
     registerWithEmailAndPassword,
-    serverError,
+    error: serverError,
     isLoading,
     loginWithGmail,
   } = useAuth()
