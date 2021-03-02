@@ -6,7 +6,7 @@ import { useMedia } from '../hooks/useMedia'
 
 const AppOverlay: React.FC = () => {
   const isMobile = useMedia('(max-width: 576px)')
-  const isSidebarOpen = useSidebar()
+  const { isSidebarOpen } = useSidebar()
   const isVisible = isMobile && isSidebarOpen
   return (
     <div

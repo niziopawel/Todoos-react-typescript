@@ -1,17 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import App from './App'
 import AuthProvider from './context/AuthContext'
 import * as serviceWorker from './serviceWorker'
 import { Global } from '@emotion/core'
 import reset from './lib/reset'
 
+const queryClient = new QueryClient()
+
 ReactDOM.render(
   <React.Fragment>
     <Global styles={reset} />
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </QueryClientProvider>
   </React.Fragment>,
   document.getElementById('root'),
 )
