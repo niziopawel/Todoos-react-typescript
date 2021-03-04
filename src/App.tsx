@@ -2,20 +2,18 @@ import React from 'react'
 import { useAuth } from './context/AuthContext'
 import UnAuthenticatedApp from './UnAuthenticatedApp'
 import LoadingPage from './screens/loading-page'
-import MainAppProviders from './context/MainAppProviders'
+import AppProviders from './context/AppProviders'
 
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'))
 
 const App: React.FC = () => {
-  const { user, initializing } = useAuth()
+  const { user } = useAuth()
   return (
     <React.Suspense fallback={<LoadingPage />}>
-      {initializing ? (
-        <LoadingPage />
-      ) : user ? (
-        <MainAppProviders>
+      {user ? (
+        <AppProviders>
           <AuthenticatedApp />
-        </MainAppProviders>
+        </AppProviders>
       ) : (
         <UnAuthenticatedApp />
       )}

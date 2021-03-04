@@ -1,6 +1,7 @@
 import { navigate } from '@reach/router'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { firebase, auth, db } from '../config/firebaseConfig'
+import LoadingPage from '../screens/loading-page'
 
 type AuthContextType = {
   user: firebase.User | null
@@ -100,6 +101,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   function logout() {
     auth.signOut()
     navigate('/')
+  }
+
+  if (initializing) {
+    return <LoadingPage />
   }
 
   return (
