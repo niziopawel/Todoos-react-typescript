@@ -1,6 +1,7 @@
 import React from 'react'
 import { SidebarContainer } from './style'
 import { useTheme } from '../../context/ThemeContext'
+
 type SidebarProps = {
   isOpen: boolean
   onItemClick?: () => void

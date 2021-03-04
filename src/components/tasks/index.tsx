@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React from 'react'
-import { RouteComponentProps } from '@reach/router'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
 import { useSidebar } from '../../context/SidebarContex'
@@ -9,9 +8,7 @@ import { useMedia } from '../../hooks/useMedia'
 import { TaskContainer } from './styles'
 import Button from '../button'
 
-type TasksProps = {
-  path?: RouteComponentProps
-}
+type TasksProps = {}
 
 const Tasks: React.FC<TasksProps> = () => {
   const { logout } = useAuth()

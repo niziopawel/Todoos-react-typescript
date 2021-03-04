@@ -3,7 +3,7 @@ import React from 'react'
 import { css, jsx } from '@emotion/core'
 import { useTheme } from '../context/ThemeContext'
 
-const AppContainer: React.FC = ({ children }) => {
+const Wrapper: React.FC = ({ children }) => {
   const { activeTheme } = useTheme()
   return (
     <div
@@ -21,4 +21,4 @@ const AppContainer: React.FC = ({ children }) => {
   )
 }
 
-export default AppContainer
+export default Wrapper
