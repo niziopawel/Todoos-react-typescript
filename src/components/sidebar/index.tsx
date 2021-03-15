@@ -1,19 +1,38 @@
-import React from 'react'
-import { SidebarContainer } from './style'
+import React, { useState } from 'react'
+import { SidebarContainer, SidebarInner } from './styles'
 import { useTheme } from '../../context/ThemeContext'
+import SidebarContext from './SidebarContext'
+import SubMenu from './SubMenu'
+import Menu from './Menu'
+import MenuItem from './MenuItem'
 
 type SidebarProps = {
   isOpen: boolean
-  onItemClick?: () => void
+  onSelect?: () => void
+  initialActiveItemId?: string
+  children: React.ReactNode
 }
 
-const SideBar: React.FC<SidebarProps> = ({ children, isOpen }) => {
+function Sidebar(props: SidebarProps) {
   const { activeTheme } = useTheme()
+  const { initialActiveItemId, children, isOpen } = props
+  const [activeItemId, setActiveItem] = useState(initialActiveItemId)
+
+  function changeActiveItem(id: string) {
+    setActiveItem(id)
+  }
+
   return (
-    <SidebarContainer isOpen={isOpen} theme={activeTheme}>
-      {children}
-    </SidebarContainer>
+    <SidebarContext.Provider value={{ activeItemId, changeActiveItem }}>
+      <SidebarContainer isOpen={isOpen} theme={activeTheme}>
+        <SidebarInner>{children}</SidebarInner>
+      </SidebarContainer>
+    </SidebarContext.Provider>
   )
 }
 
-export default SideBar
+Sidebar.Menu = Menu
+Sidebar.MenuItem = MenuItem
+Sidebar.SubMenu = SubMenu
+
+export default Sidebar

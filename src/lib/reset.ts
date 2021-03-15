@@ -41,6 +41,10 @@ const reset = css`
     text-decoration: none;
     background: transparent;
   }
+  ul,
+  li {
+    list-style: none;
+  }
 
   ${typography}
 `

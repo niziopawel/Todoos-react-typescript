@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'
 import React from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
-import { useSidebar } from '../../context/SidebarContex'
+import { useOpenSidebar } from '../../context/OpenSidebarContext'
 import { useMedia } from '../../hooks/useMedia'
 import { TaskContainer } from './styles'
 import Button from '../button'
@@ -13,7 +13,7 @@ type TasksProps = {}
 const Tasks: React.FC<TasksProps> = () => {
   const { logout } = useAuth()
   const { switchTheme } = useTheme()
-  const { isSidebarOpen } = useSidebar()
+  const { isSidebarOpen } = useOpenSidebar()
   const isMobile = useMedia('(max-width: 576px)')
 
   function handleClick() {

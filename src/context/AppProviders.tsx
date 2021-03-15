@@ -1,13 +1,13 @@
 import React from 'react'
-import SidebarProvider from './SidebarContex'
+import OpenSidebarProvider from './OpenSidebarContext'
 import ThemeProvider from './ThemeContext'
 
-const MainAppProviders = ({ children }: { children: React.ReactNode }) => {
+const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeProvider>
-      <SidebarProvider>{children}</SidebarProvider>
+      <OpenSidebarProvider>{children}</OpenSidebarProvider>
     </ThemeProvider>
   )
 }
 
-export default MainAppProviders
+export default AppProviders

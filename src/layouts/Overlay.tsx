@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React from 'react'
-import { useSidebar } from '../context/SidebarContex'
+import { useOpenSidebar } from '../context/OpenSidebarContext'
 import { useMedia } from '../hooks/useMedia'
 
 const AppOverlay: React.FC = () => {
   const isMobile = useMedia('(max-width: 576px)')
-  const { isSidebarOpen } = useSidebar()
+  const { isSidebarOpen } = useOpenSidebar()
   const isVisible = isMobile && isSidebarOpen
   return (
     <div

@@ -7,10 +7,10 @@ import {
   AiOutlineSetting,
 } from 'react-icons/ai'
 import { BiPlus } from 'react-icons/bi'
-import { useSidebar } from '../context/SidebarContex'
+import { useOpenSidebar } from '../context/OpenSidebarContext'
 
 const AppHeader: React.FC = () => {
-  const { isSidebarOpen, toggleSidebar } = useSidebar()
+  const { isSidebarOpen, toggleSidebar } = useOpenSidebar()
   return (
     <Header>
       <Header.Group>

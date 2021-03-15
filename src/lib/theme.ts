@@ -19,6 +19,7 @@ export type ThemeType = {
   onHeaderColor: string
   surfaceBgColor: string
   onSurfaceColor: string
+  onSurfaceHover: string
   shadowElevation1: string
 }
 
@@ -40,7 +41,8 @@ const defaultTheme: ThemeType = {
   headerBgColor: '#6200EE',
   onHeaderColor: '#fff',
   surfaceBgColor: '#fafafa',
-  onSurfaceColor: '#000',
+  onSurfaceColor: '#333',
+  onSurfaceHover: '#ececec',
   shadowElevation1: '0 1px 2px rgba(0,0,0,.15), 0 0 2px rgba(0,0,0,.1)',
 }
 
@@ -63,6 +65,7 @@ const darkTheme: ThemeType = {
   onHeaderColor: '#ccc',
   surfaceBgColor: '#212121',
   onSurfaceColor: '#ccc',
+  onSurfaceHover: '#363636',
   shadowElevation1: '0 1px 2px rgba(0,0,0,.15), 0 0 2px rgba(0,0,0,.1)',
 }
 
