@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query'
 import { db, firebase } from '../config/firebaseConfig'
 
-type Project = {
+export type Project = {
   name: string
   userId: string
   archived?: boolean
+  projectId: string
 }
 
 const projectConverter = {
@@ -17,13 +18,15 @@ const projectConverter = {
   ): Project {
     const data = snapshot.data(options)
     return {
+      projectId: snapshot.id,
       name: data.name,
       userId: data.userId,
       archived: data.archived,
     }
   },
 }
-async function fetchProjects(userId: string) {
+
+async function fetchProjects(userId: string | undefined) {
   const projectSnapshot = await db
     .collection('projects')
     .where('userId', '==', userId)
@@ -33,8 +36,16 @@ async function fetchProjects(userId: string) {
   return projectSnapshot.docs.map(project => project.data())
 }
 
-export function useProjects(userId: string) {
-  return useQuery<Project[], firebase.FirebaseError>('projects', () =>
-    fetchProjects(userId),
-  )
+export function useProjects(userId: string | undefined) {
+  if (userId) {
+    return useQuery<Project[], firebase.FirebaseError>(
+      ['projects', userId],
+      () => fetchProjects(userId),
+      {
+        staleTime: 10000,
+      },
+    )
+  } else {
+    throw new Error('User uid is undefined')
+  }
 }

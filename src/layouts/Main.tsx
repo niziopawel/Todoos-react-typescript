@@ -7,10 +7,10 @@ const Main: React.FC = () => {
   return (
     <main>
       <Router>
-        <Redirect from="/signin" to="/app/today" noThrow />
-        <Redirect from="/" to="/app/today" noThrow />
-        <ProjectTasks path="app/project/:projectId" />
-        <TodayTasks path="app/today" />
+        <Redirect from="/signin" to="/today" noThrow />
+        <Redirect from="/" to="/today" noThrow />
+        <ProjectTasks path="project/:projectId" />
+        <TodayTasks path="today" />
       </Router>
     </main>
   )
