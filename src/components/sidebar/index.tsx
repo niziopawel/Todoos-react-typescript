@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { SidebarContainer, SidebarInner } from './styles'
 import { useTheme } from '../../context/ThemeContext'
 import SidebarContext from './SidebarContext'
@@ -9,17 +10,23 @@ import MenuItem from './MenuItem'
 type SidebarProps = {
   isOpen: boolean
   onSelect?: () => void
-  initialActiveItemId?: string
   children: React.ReactNode
 }
 
 function Sidebar(props: SidebarProps) {
+  const location = useLocation()
   const { activeTheme } = useTheme()
-  const { initialActiveItemId, children, isOpen } = props
+  const { children, isOpen } = props
+  const initialActiveItemId = getActiveItemFromUrlParams()
   const [activeItemId, setActiveItem] = useState(initialActiveItemId)
 
   function changeActiveItem(id: string) {
     setActiveItem(id)
+  }
+
+  function getActiveItemFromUrlParams() {
+    const pathNameParts = location.pathname.split('/')
+    return pathNameParts[pathNameParts.length - 1]
   }
 
   return (

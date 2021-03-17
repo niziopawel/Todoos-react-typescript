@@ -27,7 +27,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ projectsData }) => {
   }
 
   return (
-    <Sidebar isOpen={isSidebarOpen} initialActiveItemId="today">
+    <Sidebar isOpen={isSidebarOpen}>
       <Menu>
         <MenuItem
           id="1"
