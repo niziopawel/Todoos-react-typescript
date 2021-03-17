@@ -14,7 +14,6 @@ function AuthenticatedApp() {
     user?.uid,
   )
 
-  console.log(projects)
   if (isLoading) {
     return <LoadingPage />
   }
