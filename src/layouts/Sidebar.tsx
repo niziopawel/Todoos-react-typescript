@@ -32,7 +32,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ projectsData }) => {
         <MenuItem
           id="1"
           icon={<FaInbox size={18} />}
-          path={`project/${getInboxProjectId()}`}
+          path={`/project/${getInboxProjectId()}`}
         >
           Inbox
         </MenuItem>
@@ -55,7 +55,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ projectsData }) => {
           {restProjects.map(({ projectId, name }) => (
             <MenuItem
               id={projectId}
-              path={`project/${projectId}`}
+              path={`/project/${projectId}`}
               icon={<GoPrimitiveDot />}
               key={projectId}
             >

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React, { useState, useRef, useEffect } from 'react'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import Form from '../../components/form'
 import Spinner from '../../components/spinner'
 import { validateEmail, validatePassword } from './utils/validation'

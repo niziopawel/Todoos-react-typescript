@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
 import { useOpenSidebar } from '../../context/OpenSidebarContext'
@@ -11,13 +12,16 @@ import Button from '../button'
 type TasksProps = {}
 
 const Tasks: React.FC<TasksProps> = () => {
+  const history = useHistory()
   const { logout } = useAuth()
   const { switchTheme } = useTheme()
   const { isSidebarOpen } = useOpenSidebar()
   const isMobile = useMedia('(max-width: 576px)')
 
   function handleClick() {
-    logout()
+    logout(() => {
+      history.push('/')
+    })
   }
 
   return (

@@ -1,8 +1,7 @@
 import React from 'react'
-import { RouteComponentProps } from '@reach/router'
 import Tasks from '../../components/tasks'
 
-type TodayTasksProps = {} & RouteComponentProps
+type TodayTasksProps = {}
 
 const TodayTasks: React.FC<TodayTasksProps> = () => {
   return <Tasks />

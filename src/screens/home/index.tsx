@@ -3,11 +3,12 @@ import { css, jsx } from '@emotion/core'
 import React from 'react'
 import Button from '../../components/button'
 import { mq } from '../../lib/mediaQueries'
-import { navigate } from '@reach/router'
+import { useHistory } from 'react-router-dom'
 import { ReactComponent as TodoSVG } from '../../svg/todo.svg'
 import { HomeContainer, HeadingBox } from './styles'
 
 const Home: React.FC = () => {
+  const history = useHistory()
   return (
     <HomeContainer>
       <HeadingBox>
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
         <Button
           variant="primary"
           type="button"
-          onClick={() => navigate('/signin')}
+          onClick={() => history.push('/signin')}
         >
           Get started
         </Button>

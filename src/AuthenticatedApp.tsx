@@ -1,8 +1,9 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import Header from './layouts/Header'
 import Wrapper from './layouts/Wrapper'
 import Overlay from './layouts/Overlay'
-import Sidebar from './layouts/Sidebar'
+import AppSidebar from './layouts/Sidebar'
 import Main from './layouts/Main'
 import LoadingPage from './screens/loading-page'
 import { useProjects } from './hooks/useProjects'
@@ -14,7 +15,6 @@ function AuthenticatedApp() {
     user?.uid,
   )
 
-  console.log(projects)
   if (isLoading) {
     return <LoadingPage />
   }
@@ -25,12 +25,14 @@ function AuthenticatedApp() {
 
   if (isSuccess && projects) {
     return (
-      <Wrapper>
-        <Header />
-        <Sidebar projectsData={projects} />
-        <Main />
-        <Overlay />
-      </Wrapper>
+      <Router>
+        <Wrapper>
+          <Header />
+          <AppSidebar projectsData={projects} />
+          <Main />
+          <Overlay />
+        </Wrapper>
+      </Router>
     )
   }
   return null

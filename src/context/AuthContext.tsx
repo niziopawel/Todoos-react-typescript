@@ -1,4 +1,3 @@
-import { navigate } from '@reach/router'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { firebase, auth, db } from '../config/firebaseConfig'
 import LoadingPage from '../screens/loading-page'
@@ -10,7 +9,7 @@ type AuthContextType = {
   initializing: boolean
   loginWithEmailAndPassword: (email: string, password: string) => void
   loginWithGmail: () => void
-  logout: () => void
+  logout: (callback: () => void) => void
   registerWithEmailAndPassword: (email: string, password: string) => void
 }
 
@@ -98,9 +97,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     })
   }
 
-  function logout() {
+  function logout(callback: () => void) {
     auth.signOut()
-    navigate('/')
+    callback()
   }
 
   if (initializing) {

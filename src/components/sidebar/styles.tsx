@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { ThemeType } from '../../lib/theme'
 import { mq } from '../../lib/mediaQueries'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 
 const SidebarContainer = styled.div<{ theme: ThemeType; isOpen: boolean }>`
   height: calc(100vh - 40px);

@@ -1,17 +1,22 @@
 import React from 'react'
 import SignIn from './screens/auth/SignIn'
 import SignUp from './screens/auth/SignUp'
-import { Router, Redirect } from '@reach/router'
-import Route from './components/Route'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Home from './screens/home'
 
 const UnAuthenticatedApp: React.FC = () => {
   return (
     <Router>
-      <Route component={Home} path="/" />
-      <Redirect from="/app" to="/" noThrow />
-      <Route component={SignIn} path="/signin" default />
-      <Route component={SignUp} path="/signup" />
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Redirect from="/app" to="/" />
+      <Route path="/signin">
+        <SignIn />
+      </Route>
+      <Route path="/signup">
+        <SignUp />
+      </Route>
     </Router>
   )
 }
