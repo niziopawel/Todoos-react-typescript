@@ -1,5 +1,6 @@
 import React from 'react'
 import Tasks from '../../components/tasks'
+import { useTasks } from '../../hooks/useTasks'
 
 type ProjectTasksProps = {}
 

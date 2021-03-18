@@ -12,7 +12,6 @@ type AppSidebarProps = {
 const AppSidebar: React.FC<AppSidebarProps> = ({ projectsData }) => {
   const { isSidebarOpen } = useOpenSidebar()
   const { Menu, MenuItem, SubMenu } = Sidebar
-
   const inboxProjectId = getInboxProjectId()
   const restProjects = projectsData.filter(
     project => project.projectId !== inboxProjectId,
